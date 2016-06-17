@@ -1,0 +1,9 @@
+Metrics/LineLength:
+  Max: 100
+  AllowURI: true
+  URISchemes:
+  - http
+  - https
+
+Metrics/MethodLength:
+  Max: 20
