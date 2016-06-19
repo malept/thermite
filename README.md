@@ -1,5 +1,7 @@
 # Thermite
 
+[![Build Status](https://travis-ci.org/malept/thermite.svg?branch=master)](https://travis-ci.org/malept/thermite)
+
 Thermite is a Rake-based helper for building and distributing Rust-based Ruby extensions.
 
 ## Usage
