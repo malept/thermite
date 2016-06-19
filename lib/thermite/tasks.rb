@@ -66,7 +66,7 @@ module Thermite
           run_cargo cargo_args
           FileUtils.cp "target/#{target}/#{shared_library}", 'lib/'
         elsif !download_latest_binary_from_github_release
-          fail cargo_required_msg
+          raise cargo_required_msg
         end
       end
     end

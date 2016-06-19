@@ -65,7 +65,7 @@ module Thermite
       when Net::HTTPClientError
         nil
       when Net::HTTPServerError
-        fail response
+        raise response
       else
         puts "Downloading latest compiled version (#{version}) from GitHub"
         StringIO.new(http_get(response['location']))
