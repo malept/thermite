@@ -19,6 +19,7 @@
 # OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 require 'mkmf'
+require 'shellwords'
 
 module Thermite
   #
@@ -30,7 +31,7 @@ module Thermite
     end
 
     def run_cargo(*args)
-      sh "#{cargo} #{args.join(' ')}"
+      sh "#{cargo} #{Shellwords.join(args)}"
     end
 
     def run_cargo_if_exists(*args)
