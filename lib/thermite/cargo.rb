@@ -34,14 +34,14 @@ module Thermite
     end
 
     #
-    # Run `cargo` with the given arguments.
+    # Run `cargo` with the given `args` and return `STDOUT`.
     #
     def run_cargo(*args)
       sh "#{cargo} #{Shellwords.join(args)}"
     end
 
     #
-    # Only run cargo if it is found in the executable paths.
+    # Only `run_cargo` if it is found in the executable paths.
     #
     def run_cargo_if_exists(*args)
       run_cargo(*args) if cargo

@@ -57,7 +57,13 @@ module Thermite
     attr_reader :options
 
     #
-    # Defines the Thermite tasks with the given configuration parameters (see `options`).
+    # Define the Thermite tasks with the given configuration parameters (see `options`).
+    #
+    # Example:
+    #
+    # ```ruby
+    # Thermite::Tasks.new(cargo_project_path: 'rust')
+    # ```
     #
     def initialize(options = {})
       @options = options
