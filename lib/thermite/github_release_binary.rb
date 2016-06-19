@@ -28,10 +28,15 @@ module Thermite
   # GitHub releases binary helpers.
   #
   module GithubReleaseBinary
-    def http_get(uri)
-      Net::HTTP.get(URI(uri))
-    end
-
+    #
+    # Downloads and unpacks the latest binary from GitHub releases, given the target OS
+    # and architecture.
+    #
+    # Requires the `github_username` option to be set. The project name defaults to using the
+    # `library_name`, but is configurable via the `github_repo` option.
+    #
+    # Returns whether a binary was found and unpacked.
+    #
     def download_latest_binary_from_github_release
       return false unless options[:github_username]
       username = options[:github_username]
@@ -47,6 +52,12 @@ module Thermite
       end
 
       installed_binary
+    end
+
+    private
+
+    def http_get(uri)
+      Net::HTTP.get(URI(uri))
     end
 
     def each_github_release(github_uri)

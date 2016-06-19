@@ -23,6 +23,9 @@ module Thermite
   # Helpers to package the Rust library, using FPM.
   #
   module Package
+    #
+    # Builds a tarball of the Rust-compiled shared library.
+    #
     def build_package
       dir = FPM::Package::Dir.new
       dir.input("lib/#{shared_library}")

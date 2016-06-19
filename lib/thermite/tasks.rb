@@ -45,8 +45,20 @@ module Thermite
     include Thermite::GithubReleaseBinary
     include Thermite::Package
 
+    #
+    # Possible configuration options for Thermite tasks:
+    #
+    # * `cargo_project_path` - the path to the Cargo project. Defaults to the current
+    #   working directory.
+    # * `github_username` - the username of the GitHub repository. If unset, the Github release
+    #   binary logic is not triggered when installing the gem.
+    # * `github_repo` - the project name of the GitHub repository. Defaults to the `library_name`.
+    #
     attr_reader :options
 
+    #
+    # Defines the Thermite tasks with the given configuration parameters (see `options`).
+    #
     def initialize(options = {})
       @options = options
       define_build_task
@@ -54,6 +66,8 @@ module Thermite
       define_test_task
       define_package_task
     end
+
+    private
 
     def define_build_task
       desc 'Build or download the Rust shared library: TARGET controls Cargo target'

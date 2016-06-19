@@ -14,6 +14,14 @@ Thermite is a Rake-based helper for building and distributing Rust-based Ruby ex
 Thermite::Tasks.new
 ```
 
+You can optionally pass arguments to `Thermite::Tasks.new`, which configure the tasks for your
+specific project:
+
+* `cargo_project_path` - the path to the Cargo project. Defaults to the current working directory.
+* `github_username` - the username of the GitHub repository. If unset, the Github release binary
+  logic is not triggered when installing the gem.
+* `github_repo` - the project name of the GitHub repository. Defaults to the Rust library name.
+
 ### Example
 
 Using the cliché Rust+Ruby example, the [`rusty_blank`](https://github.com/malept/rusty_blank)

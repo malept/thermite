@@ -18,5 +18,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'rake', '~> 11'
   s.add_runtime_dependency 'fpm', '~> 1.5'
   s.add_runtime_dependency 'tomlrb', '~> 1.2'
+  s.add_development_dependency 'rdoc', '~> 4.2'
   s.add_development_dependency 'rubocop', '~> 0.40'
 end

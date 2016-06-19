@@ -18,7 +18,15 @@
 # DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT
 # OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+require 'rdoc/task'
 require 'rubocop/rake_task'
+
+RDoc::Task.new do |rdoc|
+  rdoc.main = 'README.md'
+  rdoc.markup = 'markdown'
+  rdoc.rdoc_files.include('README.md', 'lib/thermite/*.rb')
+end
+
 RuboCop::RakeTask.new
 
-task default: %w(rubocop)
+task default: %w(rubocop rdoc)

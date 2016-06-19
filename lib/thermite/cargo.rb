@@ -26,18 +26,30 @@ module Thermite
   # Cargo helpers
   #
   module Cargo
+    #
+    # Path to `cargo`. Can be overwritten by using the `CARGO` environment variable.
+    #
     def cargo
       @cargo ||= find_executable(ENV.fetch('CARGO', 'cargo'))
     end
 
+    #
+    # Run `cargo` with the given arguments.
+    #
     def run_cargo(*args)
       sh "#{cargo} #{Shellwords.join(args)}"
     end
 
+    #
+    # Only run cargo if it is found in the executable paths.
+    #
     def run_cargo_if_exists(*args)
       run_cargo(*args) if cargo
     end
 
+    #
+    # Message used when cargo is required but not found.
+    #
     def cargo_required_msg
       <<EOM
 ****
