@@ -83,7 +83,7 @@ module Thermite
           target = ENV.fetch('TARGET', 'release')
           cargo_args = %w(build)
           cargo_args << '--release' if target == 'release'
-          run_cargo cargo_args
+          run_cargo(*cargo_args)
           FileUtils.cp "target/#{target}/#{shared_library}", 'lib/'
         elsif !download_latest_binary_from_github_release
           raise cargo_required_msg
