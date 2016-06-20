@@ -2,7 +2,7 @@
 encoding: UTF-8
 static_path: []
 rdoc_include:
-- "lib/thermite"
+- "lib/thermite/*.rb"
 - "README.md"
 charset: UTF-8
 exclude:
