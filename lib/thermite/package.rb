@@ -31,7 +31,7 @@ module Thermite
     #
     def build_package
       tgz = Zlib::GzipWriter.new(File.open(tarball_filename(toml[:package][:version]), 'wb'))
-      Archive::Tar::Minitar.pack("lib/#{shared_library}", tgz)
+      Archive::Tar::Minitar.pack(File.join('lib', shared_library), tgz)
     end
   end
 end
