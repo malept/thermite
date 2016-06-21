@@ -18,6 +18,9 @@
 # DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT
 # OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+require 'archive/tar/minitar'
+require 'zlib'
+
 module Thermite
   #
   # Helpers to package the Rust library, using FPM.
@@ -27,11 +30,8 @@ module Thermite
     # Builds a tarball of the Rust-compiled shared library.
     #
     def build_package
-      dir = FPM::Package::Dir.new
-      dir.input("lib/#{shared_library}")
-      tarball = dir.convert(FPM::Package::Tar)
-      tarball.name = library_name
-      tarball.output(tarball_filename(toml[:package][:version]))
+      tgz = Zlib::GzipWriter.new(File.open(tarball_filename(toml[:package][:version]), 'wb'))
+      Archive::Tar::Minitar.pack("lib/#{shared_library}", tgz)
     end
   end
 end

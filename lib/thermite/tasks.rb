@@ -19,8 +19,6 @@
 # OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 require 'fileutils'
-# Defined here instead of in thermite/package because otherwise a weird FFI exception occurs
-require 'fpm'
 require 'rake/tasklib'
 require 'thermite/cargo'
 require 'thermite/config'
