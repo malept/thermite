@@ -70,7 +70,11 @@ module Thermite
     # The basename of the Rust shared library.
     #
     def shared_library
-      "lib#{library_name}.#{shared_ext}"
+      @shared_library ||= begin
+        filename = "#{library_name}.#{shared_ext}"
+        filename = "lib#{filename}" unless Gem.win_platform?
+        filename
+      end
     end
 
     #
