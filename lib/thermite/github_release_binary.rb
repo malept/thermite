@@ -41,7 +41,7 @@ module Thermite
     def download_latest_binary_from_github_release
       return false unless options[:github_username]
       username = options[:github_username]
-      project = options.fetch(:github_repo, library_name)
+      project = options.fetch(:github_repo, @config.library_name)
       installed_binary = false
       github_uri = "https://github.com/#{username}/#{project}"
       each_github_release(github_uri) do |version, download_uri|
@@ -66,7 +66,7 @@ module Thermite
       feed = REXML::Document.new(http_get(releases_uri))
       REXML::XPath.each(feed, '//entry/title[contains(.,"-rust")]/text()') do |tag|
         version = tag.to_s.slice(1..-6)
-        download_uri = "#{github_uri}/releases/download/#{tag}/#{tarball_filename(version)}"
+        download_uri = "#{github_uri}/releases/download/#{tag}/#{@config.tarball_filename(version)}"
 
         yield(version, download_uri)
       end

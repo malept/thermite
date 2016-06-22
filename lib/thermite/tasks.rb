@@ -39,7 +39,6 @@ module Thermite
   #
   class Tasks < Rake::TaskLib
     include Thermite::Cargo
-    include Thermite::Config
     include Thermite::GithubReleaseBinary
     include Thermite::Package
 
@@ -65,6 +64,7 @@ module Thermite
     #
     def initialize(options = {})
       @options = options
+      @config = Config.new(options)
       define_build_task
       define_clean_task
       define_test_task
@@ -82,7 +82,7 @@ module Thermite
           cargo_args = %w(build)
           cargo_args << '--release' if target == 'release'
           run_cargo(*cargo_args)
-          FileUtils.cp(File.join('target', target, shared_library), 'lib')
+          FileUtils.cp(File.join('target', target, @config.shared_library), 'lib')
         elsif !download_latest_binary_from_github_release
           raise cargo_required_msg
         end
@@ -92,7 +92,7 @@ module Thermite
     def define_clean_task
       desc 'Clean up after thermite:build task'
       task 'thermite:clean' do
-        FileUtils.rm "lib/#{shared_library}", force: true
+        FileUtils.rm "lib/#{@config.shared_library}", force: true
         run_cargo_if_exists 'clean'
       end
     end

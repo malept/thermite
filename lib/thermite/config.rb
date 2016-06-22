@@ -23,9 +23,13 @@ require 'tomlrb'
 
 module Thermite
   #
-  # Configuration helpers
+  # Configuration helper
   #
-  module Config
+  class Config
+    def initialize(options = {})
+      @options = options
+    end
+
     #
     # The file extension of the compiled shared Rust library.
     #
@@ -92,7 +96,7 @@ module Thermite
     #
     def toml
       @toml ||= begin
-        project_path = options.fetch(:cargo_project_path, FileUtils.pwd)
+        project_path = @options.fetch(:cargo_project_path, FileUtils.pwd)
         toml_path = File.join(project_path, 'Cargo.toml')
         Tomlrb.load_file(toml_path, symbolize_keys: true)
       end
