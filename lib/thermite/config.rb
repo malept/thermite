@@ -26,6 +26,11 @@ module Thermite
   # Configuration helper
   #
   class Config
+    #
+    # Creates a new configuration object.
+    #
+    # `options` is the same as the `Thermite::Tasks.new` parameter.
+    #
     def initialize(options = {})
       @options = options
     end
