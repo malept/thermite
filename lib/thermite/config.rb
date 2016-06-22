@@ -30,12 +30,14 @@ module Thermite
     # The file extension of the compiled shared Rust library.
     #
     def shared_ext
-      @shared_ext ||= if RbConfig::CONFIG['DLEXT'] == 'bundle'
-        'dylib'
-      elsif Gem.win_platform?
-        'dll'
-      else
-        RbConfig::CONFIG['DLEXT']
+      @shared_ext ||= begin
+        if RbConfig::CONFIG['DLEXT'] == 'bundle'
+          'dylib'
+        elsif Gem.win_platform?
+          'dll'
+        else
+          RbConfig::CONFIG['DLEXT']
+        end
       end
     end
 
