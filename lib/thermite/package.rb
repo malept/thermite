@@ -30,9 +30,9 @@ module Thermite
     # Builds a tarball of the Rust-compiled shared library.
     #
     def build_package
-      filename = @config.tarball_filename(@config.toml[:package][:version])
+      filename = config.tarball_filename(config.toml[:package][:version])
       tgz = Zlib::GzipWriter.new(File.open(filename, 'wb'))
-      Archive::Tar::Minitar.pack(File.join('lib', @config.shared_library), tgz)
+      Archive::Tar::Minitar.pack(File.join('lib', config.shared_library), tgz)
     end
   end
 end

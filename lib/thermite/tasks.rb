@@ -43,6 +43,11 @@ module Thermite
     include Thermite::Package
 
     #
+    # The configuration used for the Rake tasks.
+    #
+    attr_reader :config
+
+    #
     # Possible configuration options for Thermite tasks:
     #
     # * `cargo_project_path` - the path to the Cargo project. Defaults to the current
@@ -82,7 +87,7 @@ module Thermite
           cargo_args = %w(build)
           cargo_args << '--release' if target == 'release'
           run_cargo(*cargo_args)
-          FileUtils.cp(File.join('target', target, @config.shared_library), 'lib')
+          FileUtils.cp(File.join('target', target, config.shared_library), 'lib')
         elsif !download_latest_binary_from_github_release
           raise cargo_required_msg
         end
@@ -92,7 +97,7 @@ module Thermite
     def define_clean_task
       desc 'Clean up after thermite:build task'
       task 'thermite:clean' do
-        FileUtils.rm "lib/#{@config.shared_library}", force: true
+        FileUtils.rm "lib/#{config.shared_library}", force: true
         run_cargo_if_exists 'clean'
       end
     end
