@@ -33,17 +33,16 @@ module Thermite
     # Downloads and unpacks the latest binary from GitHub releases, given the target OS
     # and architecture.
     #
-    # Requires the `github_username` option to be set. The project name defaults to using the
-    # `library_name`, but is configurable via the `github_repo` option.
+    # Requires the `github_releases` option to be `true`. It uses the `repository` value in the
+    # project's `Cargo.toml` (in the `package` section) to determine where the releases
+    # are located.
     #
     # Returns whether a binary was found and unpacked.
     #
     def download_latest_binary_from_github_release
-      return false unless options[:github_username]
-      username = options[:github_username]
-      project = options.fetch(:github_repo, config.library_name)
+      return false unless options[:github_releases]
       installed_binary = false
-      github_uri = "https://github.com/#{username}/#{project}"
+      github_uri = toml[:package][:repository]
       each_github_release(github_uri) do |version, download_uri|
         tgz = download_binary_from_github_release(download_uri, version)
         next unless tgz

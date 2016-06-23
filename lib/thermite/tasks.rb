@@ -52,9 +52,8 @@ module Thermite
     #
     # * `cargo_project_path` - the path to the Cargo project. Defaults to the current
     #   working directory.
-    # * `github_username` - the username of the GitHub repository. If unset, the Github release
-    #   binary logic is not triggered when installing the gem.
-    # * `github_repo` - the project name of the GitHub repository. Defaults to the `library_name`.
+    # * `github_releases` - whether to look for rust binaries via GitHub releases when installing
+    #   the gem, and `cargo` is not found. Defaults to `false`.
     #
     attr_reader :options
 
