@@ -5,7 +5,7 @@ rdoc_include:
 - "lib/thermite/*.rb"
 - "README.md"
 charset: UTF-8
-exclude:
+exclude: vendor/bundle
 hyperlink_all: false
 line_numbers: true
 locale:
