@@ -5,6 +5,12 @@
 
 Thermite is a Rake-based helper for building and distributing Rust-based Ruby extensions.
 
+## Features
+
+* Provides wrappers for `cargo` commands.
+* Handles non-standard `cargo` installations via the `CARGO` environment variable.
+* Opt-in to allow users to install pre-compiled Rust extensions hosted on GitHub releases.
+
 ## Usage
 
 1. Add `thermite` as a runtime dependency in your gem.
@@ -15,11 +21,13 @@ Thermite is a Rake-based helper for building and distributing Rust-based Ruby ex
 Thermite::Tasks.new
 ```
 
+Run `rake -T` to view all of the available tasks in the `thermite` namespace.
+
 You can optionally pass arguments to `Thermite::Tasks.new`, which configure the tasks for your
 specific project:
 
 * `cargo_project_path` - the path to the Cargo project. Defaults to the current working directory.
-* `github_releases` - whether to look for rust binaries via GitHub releases when installing
+* `github_releases` - whether to look for Rust binaries via GitHub releases when installing
   the gem, and `cargo` is not found. Defaults to `false`.
 * `ruby_project_path` - the top-level directory of the Ruby gem's project. Defaults to the
   current working directory.

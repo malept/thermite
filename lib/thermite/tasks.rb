@@ -82,7 +82,7 @@ module Thermite
     def define_build_task
       desc 'Build or download the Rust shared library: CARGO_TARGET controls Cargo target'
       task 'thermite:build' do
-        # if cargo found, build. Otherwise, grab binary.
+        # if cargo found, build. Otherwise, grab binary (when github_releases is enabled).
         if cargo
           target = ENV.fetch('CARGO_TARGET', 'release')
           run_cargo_build(target)
