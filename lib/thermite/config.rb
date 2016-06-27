@@ -18,6 +18,7 @@
 # DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT
 # OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+require 'fileutils'
 require 'rbconfig'
 require 'tomlrb'
 
@@ -97,14 +98,47 @@ module Thermite
     end
 
     #
+    # The top-level directory of the Ruby project. Defaults to the current working directory.
+    #
+    def ruby_toplevel_dir
+      @ruby_toplevel_dir ||= @options.fetch(:ruby_project_path, FileUtils.pwd)
+    end
+
+    #
+    # Generate a path relative to `ruby_toplevel_dir`, given the `path_components` that are passed
+    # to `File.join`.
+    #
+    def ruby_path(*path_components)
+      File.join(ruby_toplevel_dir, *path_components)
+    end
+
+    #
+    # The top-level directory of the Cargo project. Defaults to the current working directory.
+    #
+    def rust_toplevel_dir
+      @rust_toplevel_dir ||= @options.fetch(:cargo_project_path, FileUtils.pwd)
+    end
+
+    #
+    # Generate a path relative to `rust_toplevel_dir`, given the `path_components` that are
+    # passed to `File.join`.
+    #
+    def rust_path(*path_components)
+      File.join(rust_toplevel_dir, *path_components)
+    end
+
+    #
+    # Path to the Rust shared library in the context of the Ruby project.
+    #
+    def ruby_extension_path
+      ruby_path('lib', shared_library)
+    end
+
+    #
     # Parsed TOML object (courtesy of `tomlrb`).
     #
     def toml
-      @toml ||= begin
-        project_path = @options.fetch(:cargo_project_path, FileUtils.pwd)
-        toml_path = File.join(project_path, 'Cargo.toml')
-        Tomlrb.load_file(toml_path, symbolize_keys: true)
-      end
+      @toml ||= Tomlrb.load_file(rust_path('Cargo.toml'), symbolize_keys: true)
     end
   end
 end

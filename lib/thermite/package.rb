@@ -32,7 +32,7 @@ module Thermite
     def build_package
       filename = config.tarball_filename(config.toml[:package][:version])
       tgz = Zlib::GzipWriter.new(File.open(filename, 'wb'))
-      Archive::Tar::Minitar.pack(File.join('lib', config.shared_library), tgz)
+      Archive::Tar::Minitar.pack(config.ruby_extension_path, tgz)
     end
   end
 end

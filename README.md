@@ -21,6 +21,8 @@ specific project:
 * `cargo_project_path` - the path to the Cargo project. Defaults to the current working directory.
 * `github_releases` - whether to look for rust binaries via GitHub releases when installing
   the gem, and `cargo` is not found. Defaults to `false`.
+* `ruby_project_path` - the top-level directory of the Ruby gem's project. Defaults to the
+  current working directory.
 
 ### Example
 

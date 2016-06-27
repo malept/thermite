@@ -54,6 +54,8 @@ module Thermite
     #   working directory.
     # * `github_releases` - whether to look for rust binaries via GitHub releases when installing
     #   the gem, and `cargo` is not found. Defaults to `false`.
+    # * `ruby_project_path` - the toplevel directory of the Ruby gem's project. Defaults to the
+    #   current working directory.
     #
     attr_reader :options
 
@@ -84,7 +86,8 @@ module Thermite
         if cargo
           target = ENV.fetch('CARGO_TARGET', 'release')
           run_cargo_build(target)
-          FileUtils.cp(File.join('target', target, config.shared_library), 'lib')
+          FileUtils.cp(config.rust_path('target', target, config.shared_library),
+                       config.ruby_path('lib'))
         elsif !download_latest_binary_from_github_release
           raise cargo_required_msg
         end
@@ -94,7 +97,7 @@ module Thermite
     def define_clean_task
       desc 'Clean up after thermite:build task'
       task 'thermite:clean' do
-        FileUtils.rm "lib/#{config.shared_library}", force: true
+        FileUtils.rm(config.ruby_extension_path, force: true)
         run_cargo_if_exists 'clean'
       end
     end
