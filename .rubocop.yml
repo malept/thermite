@@ -1,3 +1,6 @@
+Metrics/AbcSize:
+  Max: 20
+
 Metrics/LineLength:
   Max: 100
   AllowURI: true
