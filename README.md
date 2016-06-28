@@ -36,7 +36,8 @@ specific project:
 
 Using the cliché Rust+Ruby example, the [`rusty_blank`](https://github.com/malept/rusty_blank)
 repository contains an example of using Thermite with [ruru](https://github.com/d-unseductable/ruru)
-to provide a `String.blank?` speedup extension.
+to provide a `String.blank?` speedup extension. While the example uses ruru, this gem should be
+usable with any method of integrating Rust and Ruby that you choose.
 
 ## FAQ
 
