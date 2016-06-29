@@ -42,7 +42,7 @@ module Thermite
     def download_latest_binary_from_github_release
       return false unless options[:github_releases]
       installed_binary = false
-      github_uri = toml[:package][:repository]
+      github_uri = config.toml[:package][:repository]
       each_github_release(github_uri) do |version, download_uri|
         tgz = download_binary_from_github_release(download_uri, version)
         next unless tgz
