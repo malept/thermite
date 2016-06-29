@@ -135,6 +135,25 @@ module Thermite
     end
 
     #
+    # The basic semantic versioning format.
+    #
+    DEFAULT_TAG_FORMAT = /^(v\d+\.\d+\.\d+)$/
+
+    #
+    # The format (as a regular expression) that git tags containing Rust binary
+    # tarballs are supposed to match. Defaults to `DEFAULT_TAG_FORMAT`.
+    #
+    def git_tag_format
+      @git_tag_format ||= begin
+        if @options[:git_tag_format]
+          Regexp.new(@options[:git_tag_format])
+        else
+          DEFAULT_TAG_FORMAT
+        end
+      end
+    end
+
+    #
     # Parsed TOML object (courtesy of `tomlrb`).
     #
     def toml

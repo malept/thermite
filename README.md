@@ -44,6 +44,11 @@ Possible options:
 * `cargo_project_path` - the path to the Cargo project. Defaults to the current working directory.
 * `github_releases` - whether to look for Rust binaries via GitHub releases when installing
   the gem, and `cargo` is not found. Defaults to `false`.
+* `git_tag_format` - when `github_releases` is enabled, a regular expression (expressed as a
+  `String`) that determines which tagged releases to look for precompiled Rust tarballs. One group
+  must be specified that indicates the version number to be used in the tarball filename. Defaults
+  to `vN.N.N`, where `N` is any n-digit number. In this case, the group is around the
+  entire expression.
 * `ruby_project_path` - the top-level directory of the Ruby gem's project. Defaults to the
   current working directory.
 

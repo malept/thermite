@@ -63,8 +63,10 @@ module Thermite
     def each_github_release(github_uri)
       releases_uri = "#{github_uri}/releases.atom"
       feed = REXML::Document.new(http_get(releases_uri))
-      REXML::XPath.each(feed, '//entry/title[contains(.,"-rust")]/text()') do |tag|
-        version = tag.to_s.slice(1..-6)
+      REXML::XPath.each(feed, '//entry/title/text()') do |tag|
+        match = config.git_tag_format.match(tag.to_s)
+        next unless match
+        version = match[1]
         download_uri = "#{github_uri}/releases/download/#{tag}/#{config.tarball_filename(version)}"
 
         yield(version, download_uri)
