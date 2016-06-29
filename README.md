@@ -24,8 +24,22 @@ Thermite::Tasks.new
 
 Run `rake -T` to view all of the available tasks in the `thermite` namespace.
 
-You can optionally pass arguments to `Thermite::Tasks.new`, which configure the tasks for your
-specific project:
+### Configuration
+
+Task configuration for your project can be set in two ways:
+
+* passing arguments to `Thermite::Tasks.new`
+* adding a `package.metadata.thermite` section to `Cargo.toml`. These settings override the
+  arguments passed to the `Tasks` class. Due to the conflict, it is infeasible for
+  `cargo_project_path` to be set in this way. Example section:
+
+```toml
+[package.metadata.thermite]
+
+github_releases = true
+```
+
+Possible options:
 
 * `cargo_project_path` - the path to the Cargo project. Defaults to the current working directory.
 * `github_releases` - whether to look for Rust binaries via GitHub releases when installing

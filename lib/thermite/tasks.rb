@@ -57,6 +57,9 @@ module Thermite
     # * `ruby_project_path` - the toplevel directory of the Ruby gem's project. Defaults to the
     #   current working directory.
     #
+    # These values can be overridden by values with the same key name in the
+    # `package.metadata.thermite` section of `Cargo.toml`, if that section exists.
+    #
     attr_reader :options
 
     #
@@ -71,6 +74,7 @@ module Thermite
     def initialize(options = {})
       @options = options
       @config = Config.new(options)
+      @options.merge!(@config.toml_config)
       define_build_task
       define_clean_task
       define_test_task

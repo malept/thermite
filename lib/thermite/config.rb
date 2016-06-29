@@ -140,5 +140,20 @@ module Thermite
     def toml
       @toml ||= Tomlrb.load_file(rust_path('Cargo.toml'), symbolize_keys: true)
     end
+
+    #
+    # The Thermite-specific config from the TOML file.
+    #
+    def toml_config
+      @toml_config ||= begin
+        # Not using .dig to be Ruby < 2.3 compatible
+        if toml && toml[:package] && toml[:package][:metadata] &&
+           toml[:package][:metadata][:thermite]
+          toml[:package][:metadata][:thermite]
+        else
+          {}
+        end
+      end
+    end
   end
 end
