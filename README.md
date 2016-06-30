@@ -70,6 +70,10 @@ According to Wikipedia:
 * A common thermite reaction uses iron oxide and aluminum to produce iron and aluminum oxide:
   Fe<sub>2</sub>O<sub>3</sub> + 2Al → 2Fe + Al<sub>2</sub>O<sub>3</sub>
 
+## [Release Notes](https://github.com/malept/thermite/blob/master/NEWS.md)
+
+## [Contributing](https://github.com/malept/thermite/blob/master/CONTRIBUTING.md)
+
 ## Legal
 
 This gem is licensed under the MIT license.
