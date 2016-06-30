@@ -15,6 +15,8 @@ Gem::Specification.new do |s|
   s.files         = `git ls-files`.split($OUTPUT_RECORD_SEPARATOR)
   s.require_paths = %w(lib)
 
+  # Mostly due to tomlrb
+  s.required_ruby_version = '>= 2.0.0'
   s.add_runtime_dependency 'rake', '~> 11'
   s.add_runtime_dependency 'minitar', '~> 0.5'
   s.add_runtime_dependency 'tomlrb', '~> 1.2'
