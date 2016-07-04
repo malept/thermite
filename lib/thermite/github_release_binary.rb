@@ -30,19 +30,46 @@ module Thermite
   #
   module GithubReleaseBinary
     #
-    # Downloads and unpacks the latest binary from GitHub releases, given the target OS
-    # and architecture.
+    # Downloads a Rust binary from GitHub releases, given the target OS and architecture.
     #
     # Requires the `github_releases` option to be `true`. It uses the `repository` value in the
     # project's `Cargo.toml` (in the `package` section) to determine where the releases
     # are located.
     #
+    # If the `github_release_type` is `'latest'`, it will attempt to use the appropriate binary for
+    # the latest version in GitHub releases. Otherwise, it will download the appropriate binary for
+    # the crate version given in `Cargo.toml`.
+    #
     # Returns whether a binary was found and unpacked.
     #
-    def download_latest_binary_from_github_release
+    def download_binary
       return false unless options[:github_releases]
+
+      case options[:github_release_type]
+      when 'latest'
+        download_latest_binary_from_github_release
+      else # 'cargo'
+        download_cargo_version_from_github_release
+      end
+    end
+
+    private
+
+    def download_cargo_version_from_github_release
+      version = config.toml[:package][:version]
+      tag = options.fetch(:git_tag_format, 'v%s') % version
+      if (tgz = download_binary_from_github_release(github_download_uri(tag, version), version))
+        unpack_tarball(tgz)
+        true
+      end
+    end
+
+    #
+    # Downloads and unpacks the latest binary from GitHub releases, given the target OS
+    # and architecture.
+    #
+    def download_latest_binary_from_github_release
       installed_binary = false
-      github_uri = config.toml[:package][:repository]
       each_github_release(github_uri) do |version, download_uri|
         tgz = download_binary_from_github_release(download_uri, version)
         next unless tgz
@@ -54,7 +81,13 @@ module Thermite
       installed_binary
     end
 
-    private
+    def github_uri
+      @github_uri ||= config.toml[:package][:repository]
+    end
+
+    def github_download_uri(tag, version)
+      "#{github_uri}/releases/download/#{tag}/#{config.tarball_filename(version)}"
+    end
 
     def http_get(uri)
       Net::HTTP.get(URI(uri))
@@ -64,12 +97,11 @@ module Thermite
       releases_uri = "#{github_uri}/releases.atom"
       feed = REXML::Document.new(http_get(releases_uri))
       REXML::XPath.each(feed, '//entry/title/text()') do |tag|
-        match = config.git_tag_format.match(tag.to_s)
+        match = config.git_tag_regex.match(tag.to_s)
         next unless match
         version = match[1]
-        download_uri = "#{github_uri}/releases/download/#{tag}/#{config.tarball_filename(version)}"
 
-        yield(version, download_uri)
+        yield(version, github_download_uri(tag, version))
       end
     end
 

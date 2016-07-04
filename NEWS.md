@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+### Added
+
+* `github_release_type`, to add `'cargo'` releases via `Cargo.toml` (default) in addition to the
+  existing `'latest'` functionality
+
+### Changed
+
+* `git_tag_format` option introduced in 0.2.0 renamed to `git_tag_regex` - `git_tag_format` is
+  specific to `github_release_type: 'cargo'`, while `git_tag_regex` is specific to
+  `github_release_type: 'latest'`
+
 ## [0.2.0] - 2016-06-30
 
 ### Added

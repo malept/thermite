@@ -44,11 +44,19 @@ Possible options:
 * `cargo_project_path` - the path to the Cargo project. Defaults to the current working directory.
 * `github_releases` - whether to look for Rust binaries via GitHub releases when installing
   the gem, and `cargo` is not found. Defaults to `false`.
-* `git_tag_format` - when `github_releases` is enabled, a regular expression (expressed as a
-  `String`) that determines which tagged releases to look for precompiled Rust tarballs. One group
-  must be specified that indicates the version number to be used in the tarball filename. Defaults
-  to `vN.N.N`, where `N` is any n-digit number. In this case, the group is around the
-  entire expression.
+* `github_release_type` - when `github_releases` is `true`, the mode to use to download the Rust
+  binary from GitHub releases. `'cargo'` (the default) uses the version in `Cargo.toml`, along with
+  the `git_tag_format` option (described below) to determine the download URI. `'latest'` takes the
+  latest release matching the `git_tag_regex` option (described below) to determine the download
+  URI.
+* `git_tag_format` - when `github_release_type` is `'cargo'` (the default), the
+  [format string](http://ruby-doc.org/core/String.html#method-i-25) used to determine the tag used
+  in the GitHub download URI. Defaults to `v%s`, where `%s` is the version in `Cargo.toml`.
+* `git_tag_regex` - when `github_releases` is enabled and `github_release_type` is `'latest'`, a
+  regular expression (expressed as a `String`) that determines which tagged releases to look for
+  precompiled Rust tarballs. One group must be specified that indicates the version number to be
+  used in the tarball filename. Defaults to `vN.N.N`, where `N` is any n-digit number. In this case,
+  the group is around the entire expression.
 * `ruby_project_path` - the top-level directory of the Ruby gem's project. Defaults to the
   current working directory.
 
