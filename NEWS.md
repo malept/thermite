@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## [0.3.0] - 2016-07-03
+
 ### Added
 
 * `github_release_type`, to add `'cargo'` releases via `Cargo.toml` (default) in addition to the
@@ -32,5 +34,6 @@
 
 Initial release.
 
+[0.3.0]: https://github.com/malept/thermite/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/malept/thermite/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/malept/thermite/releases/tag/v0.1.0
