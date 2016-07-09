@@ -4,6 +4,7 @@
 
 ### Changed
 
+* Relaxed rake version requirement
 * Ruby version (major + minor) is considered when generating tarball names
 
 ## [0.3.0] - 2016-07-03
