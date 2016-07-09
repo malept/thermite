@@ -52,10 +52,13 @@ module Thermite
     end
 
     #
-    # Alias for `RbConfig::CONFIG['target_os']`.
+    # The major and minor version of the Ruby interpreter that's currently running.
     #
-    def target_os
-      @target_os ||= RbConfig::CONFIG['target_os']
+    def ruby_version
+      @ruby_version ||= begin
+        version_info = RbConfig::CONFIG['ruby_version'].split('.')
+        "ruby#{version_info[0]}#{version_info[1]}"
+      end
     end
 
     #
@@ -63,6 +66,13 @@ module Thermite
     #
     def target_arch
       @target_arch ||= RbConfig::CONFIG['target_cpu']
+    end
+
+    #
+    # Alias for `RbConfig::CONFIG['target_os']`.
+    #
+    def target_os
+      @target_os ||= RbConfig::CONFIG['target_os']
     end
 
     #
@@ -94,7 +104,7 @@ module Thermite
     # package `version`.
     #
     def tarball_filename(version)
-      "#{library_name}-#{version}-#{target_os}-#{target_arch}.tar.gz"
+      "#{library_name}-#{version}-#{ruby_version}-#{target_os}-#{target_arch}.tar.gz"
     end
 
     #
