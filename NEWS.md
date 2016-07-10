@@ -7,6 +7,10 @@
 * Relaxed rake version requirement
 * Ruby version (major + minor) is considered when generating tarball names
 
+### Fixed
+
+* The library path in the generated tarballs is relative
+
 ## [0.3.0] - 2016-07-03
 
 ### Added
