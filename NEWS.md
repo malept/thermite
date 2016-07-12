@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## [0.4.0] - 2016-07-12
+
 ### Added
 
 * Write debug output to file, if the `THERMITE_DEBUG_FILENAME` environment variable is set
@@ -47,6 +49,7 @@
 
 Initial release.
 
+[0.4.0]: https://github.com/malept/thermite/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/malept/thermite/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/malept/thermite/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/malept/thermite/releases/tag/v0.1.0
