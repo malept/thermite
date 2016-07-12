@@ -24,6 +24,7 @@ require 'thermite/cargo'
 require 'thermite/config'
 require 'thermite/github_release_binary'
 require 'thermite/package'
+require 'thermite/util'
 
 #
 # Helpers for Rust-based Ruby extensions.
@@ -41,6 +42,7 @@ module Thermite
     include Thermite::Cargo
     include Thermite::GithubReleaseBinary
     include Thermite::Package
+    include Thermite::Util
 
     #
     # The configuration used for the Rake tasks.

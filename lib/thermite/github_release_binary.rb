@@ -58,7 +58,9 @@ module Thermite
     def download_cargo_version_from_github_release
       version = config.toml[:package][:version]
       tag = options.fetch(:git_tag_format, 'v%s') % version
-      if (tgz = download_binary_from_github_release(github_download_uri(tag, version), version))
+      uri = github_download_uri(tag, version)
+      if (tgz = download_binary_from_github_release(uri, version))
+        debug "Unpacking GitHub release from Cargo version: #{File.basename(uri)}"
         unpack_tarball(tgz)
         true
       end
@@ -73,6 +75,7 @@ module Thermite
       each_github_release(github_uri) do |version, download_uri|
         tgz = download_binary_from_github_release(download_uri, version)
         next unless tgz
+        debug "Unpacking GitHub release: #{File.basename(download_uri)}"
         unpack_tarball(tgz)
         installed_binary = true
         break
@@ -123,6 +126,7 @@ module Thermite
       tar.each do |entry|
         path = entry.header.name
         next if path.end_with?('/')
+        debug "Unpacking file: #{path}"
         File.open(path, 'wb') do |f|
           f.write(entry.read)
         end

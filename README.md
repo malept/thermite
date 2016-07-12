@@ -67,6 +67,11 @@ repository contains an example of using Thermite with [ruru](https://github.com/
 to provide a `String.blank?` speedup extension. While the example uses ruru, this gem should be
 usable with any method of integrating Rust and Ruby that you choose.
 
+### Troubleshooting
+
+Debug statements can be written to a file specified by the `THERMITE_DEBUG_FILENAME` environment
+variable.
+
 ## FAQ
 
 ### Why is it named Thermite?

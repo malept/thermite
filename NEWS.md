@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added
+
+* Write debug output to file, if the `THERMITE_DEBUG_FILENAME` environment variable is set
+
 ### Changed
 
 * Relaxed rake version requirement

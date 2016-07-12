@@ -37,6 +37,13 @@ module Thermite
     end
 
     #
+    # Location to emit debug output, if not `nil`. Defaults to `nil`.
+    #
+    def debug_filename
+      @debug_filename ||= ENV['THERMITE_DEBUG_FILENAME']
+    end
+
+    #
     # The file extension of the compiled shared Rust library.
     #
     def shared_ext
