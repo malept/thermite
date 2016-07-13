@@ -1,6 +1,8 @@
 # Thermite
 
 [![Build Status](https://travis-ci.org/malept/thermite.svg?branch=master)](https://travis-ci.org/malept/thermite)
+[![Code Climate](https://codeclimate.com/github/malept/thermite/badges/gpa.svg)](https://codeclimate.com/github/malept/thermite)
+[![Test Coverage](https://codeclimate.com/github/malept/thermite/badges/coverage.svg)](https://codeclimate.com/github/malept/thermite/coverage)
 [![Inline docs](http://inch-ci.org/github/malept/thermite.svg?branch=master)](http://inch-ci.org/github/malept/thermite)
 [![Gem](https://img.shields.io/gem/v/thermite.svg?maxAge=300000)](https://rubygems.org/gems/thermite)
 
