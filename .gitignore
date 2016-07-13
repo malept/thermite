@@ -1,5 +1,5 @@
 *.gem
+.yardoc
 Gemfile.lock
 coverage
 doc
-html
