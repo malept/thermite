@@ -17,9 +17,12 @@ Gem::Specification.new do |s|
 
   # Mostly due to tomlrb
   s.required_ruby_version = '>= 2.0.0'
+
   s.add_runtime_dependency 'rake', '>= 10'
   s.add_runtime_dependency 'minitar', '~> 0.5'
   s.add_runtime_dependency 'tomlrb', '~> 1.2'
+  s.add_development_dependency 'minitest', '~> 5.9'
+  s.add_development_dependency 'mocha', '~> 1.1'
   s.add_development_dependency 'rdoc', '~> 4.2'
-  s.add_development_dependency 'rubocop', '~> 0.40'
+  s.add_development_dependency 'rubocop', '~> 0.41'
 end

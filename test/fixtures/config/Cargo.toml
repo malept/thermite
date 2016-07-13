@@ -1,0 +1,5 @@
+[package]
+name = "fixture"
+
+[package.metadata.thermite]
+github_releases = true

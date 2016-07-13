@@ -1,6 +1,10 @@
 Metrics/AbcSize:
   Max: 20
 
+Metrics/ClassLength:
+  Exclude:
+  - 'test/**/*'
+
 Metrics/LineLength:
   Max: 100
   AllowURI: true

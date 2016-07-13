@@ -48,12 +48,12 @@ module Thermite
     #
     def shared_ext
       @shared_ext ||= begin
-        if RbConfig::CONFIG['DLEXT'] == 'bundle'
+        if dlext == 'bundle'
           'dylib'
         elsif Gem.win_platform?
           'dll'
         else
-          RbConfig::CONFIG['DLEXT']
+          dlext
         end
       end
     end
@@ -63,7 +63,7 @@ module Thermite
     #
     def ruby_version
       @ruby_version ||= begin
-        version_info = RbConfig::CONFIG['ruby_version'].split('.')
+        version_info = rbconfig_ruby_version.split('.')
         "ruby#{version_info[0]}#{version_info[1]}"
       end
     end
@@ -190,6 +190,16 @@ module Thermite
           {}
         end
       end
+    end
+
+    private
+
+    def dlext
+      RbConfig::CONFIG['DLEXT']
+    end
+
+    def rbconfig_ruby_version
+      RbConfig::CONFIG['ruby_version']
     end
   end
 end

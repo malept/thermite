@@ -19,10 +19,15 @@
 # OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 require 'bundler/gem_tasks'
+require 'rake/testtask'
 require 'rdoc/task'
 require 'rubocop/rake_task'
 
+Rake::TestTask.new do |t|
+  t.libs << 'test'
+  t.test_files = FileList['test/**/*_test.rb']
+end
 RDoc::Task.new
 RuboCop::RakeTask.new
 
-task default: %w(rubocop rdoc)
+task default: %w(rubocop rdoc test)
