@@ -23,6 +23,9 @@ module Thermite
   # Utility methods
   #
   module Util
+    #
+    # Logs a debug message to the specified `config.debug_filename`, if set.
+    #
     def debug(msg)
       # Should probably replace with a Logger
       if config.debug_filename
