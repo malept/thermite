@@ -68,6 +68,8 @@ module Thermite
       end
     end
 
+    # :nocov:
+
     #
     # Alias for `RbConfig::CONFIG['target_cpu']`.
     #
@@ -81,6 +83,7 @@ module Thermite
     def target_os
       @target_os ||= RbConfig::CONFIG['target_os']
     end
+    # :nocov:
 
     #
     # The name of the library compiled by Rust.
@@ -193,6 +196,8 @@ module Thermite
     end
 
     private
+
+    # :nocov:
 
     def dlext
       RbConfig::CONFIG['DLEXT']

@@ -3,7 +3,11 @@ if ENV['CODECLIMATE_REPO_TOKEN']
   CodeClimate::TestReporter.start
 else
   require 'simplecov'
-  SimpleCov.start
+  SimpleCov.start do
+    load_profile 'test_frameworks'
+    add_filter 'lib/thermite/tasks.rb'
+    track_files 'lib/**/*.rb'
+  end
 end
 
 require 'minitest/autorun'
