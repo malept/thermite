@@ -11,10 +11,10 @@ module Thermite
     end
 
     def test_debug
-      test_helper.config.stubs(:debug_filename).returns(nil)
+      stub_debug_filename(nil)
       test_helper.debug('will not exist')
       debug_file = Tempfile.new('thermite_test')
-      test_helper.config.stubs(:debug_filename).returns(debug_file.path)
+      stub_debug_filename(debug_file.path)
       test_helper.debug('some message')
       test_helper.instance_variable_get('@debug').flush
       debug_file.rewind
@@ -22,6 +22,10 @@ module Thermite
     ensure
       debug_file.close
       debug_file.unlink
+    end
+
+    def stub_debug_filename(value)
+      test_helper.config.stubs(:debug_filename).returns(value)
     end
 
     def described_class
