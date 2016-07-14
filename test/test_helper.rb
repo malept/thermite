@@ -20,3 +20,19 @@ module Minitest
     end
   end
 end
+
+module Thermite
+  module ModuleTester
+    def test_helper(options = {})
+      @test_helper ||= described_class.new(options)
+    end
+  end
+
+  module TestHelper
+    attr_reader :config, :options
+    def initialize(options = {})
+      @options = options
+      @config = Thermite::Config.new(@options)
+    end
+  end
+end
