@@ -1,4 +1,6 @@
+require 'tempfile'
 require 'test_helper'
+require 'thermite/config'
 require 'thermite/util'
 
 module Thermite
