@@ -12,6 +12,7 @@ end
 
 require 'minitest/autorun'
 require 'mocha/mini_test'
+require 'thermite/config'
 
 module Minitest
   class Test

@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'thermite/config'
 
 module Thermite
   class ConfigTest < Minitest::Test
