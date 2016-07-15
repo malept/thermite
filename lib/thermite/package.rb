@@ -19,6 +19,7 @@
 # OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 require 'archive/tar/minitar'
+require 'rubygems/package'
 require 'zlib'
 
 module Thermite
@@ -35,6 +36,23 @@ module Thermite
       relative_library_path = config.ruby_extension_path.sub("#{config.ruby_toplevel_dir}/", '')
       Dir.chdir(config.ruby_toplevel_dir) do
         Archive::Tar::Minitar.pack(relative_library_path, tgz)
+      end
+    end
+
+    #
+    # Unpack a gzipped tarball stream (specified by `tgz`) into the current
+    # working directory.
+    #
+    def unpack_tarball(tgz)
+      gz = Zlib::GzipReader.new(tgz)
+      tar = Gem::Package::TarReader.new(gz)
+      tar.each do |entry|
+        path = entry.header.name
+        next if path.end_with?('/')
+        debug "Unpacking file: #{path}"
+        File.open(path, 'wb') do |f|
+          f.write(entry.read)
+        end
       end
     end
   end

@@ -20,9 +20,7 @@
 
 require 'net/http'
 require 'rexml/document'
-require 'rubygems/package'
 require 'uri'
-require 'zlib'
 
 module Thermite
   #
@@ -117,19 +115,6 @@ module Thermite
       else
         puts "Downloading latest compiled version (#{version}) from GitHub"
         StringIO.new(http_get(response['location']))
-      end
-    end
-
-    def unpack_tarball(tgz)
-      gz = Zlib::GzipReader.new(tgz)
-      tar = Gem::Package::TarReader.new(gz)
-      tar.each do |entry|
-        path = entry.header.name
-        next if path.end_with?('/')
-        debug "Unpacking file: #{path}"
-        File.open(path, 'wb') do |f|
-          f.write(entry.read)
-        end
       end
     end
   end
