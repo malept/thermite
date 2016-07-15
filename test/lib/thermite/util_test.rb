@@ -13,11 +13,11 @@ module Thermite
 
     def test_debug
       stub_debug_filename(nil)
-      test_helper.debug('will not exist')
+      mock_module.debug('will not exist')
       debug_file = Tempfile.new('thermite_test')
       stub_debug_filename(debug_file.path)
-      test_helper.debug('some message')
-      test_helper.instance_variable_get('@debug').flush
+      mock_module.debug('some message')
+      mock_module.instance_variable_get('@debug').flush
       debug_file.rewind
       assert_equal "some message\n", debug_file.read
     ensure
@@ -26,7 +26,7 @@ module Thermite
     end
 
     def stub_debug_filename(value)
-      test_helper.config.stubs(:debug_filename).returns(value)
+      mock_module.config.stubs(:debug_filename).returns(value)
     end
 
     def described_class

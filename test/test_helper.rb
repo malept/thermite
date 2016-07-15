@@ -24,8 +24,8 @@ end
 
 module Thermite
   module ModuleTester
-    def test_helper(options = {})
-      @test_helper ||= described_class.new(options)
+    def mock_module(options = {})
+      @mock_module ||= described_class.new(options)
     end
   end
 
