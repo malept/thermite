@@ -56,6 +56,8 @@ module Thermite
       run_cargo(*cargo_args)
     end
 
+    # :nocov:
+
     #
     # Message used when cargo is required but not found.
     #
