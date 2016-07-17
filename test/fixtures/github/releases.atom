@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xml:lang="en-US">
+  <id>tag:github.com,2008:https://github.com/ghost/project/releases</id>
+  <link type="text/html" rel="alternate" href="https://github.com/ghost/project/releases"/>
+  <link type="application/atom+xml" rel="self" href="https://github.com/ghost/project/releases.atom"/>
+  <title>Release notes from project</title>
+  <updated>2016-07-10T01:57:28Z</updated>
+  <entry>
+    <id>tag:github.com,2008:Repository/12345678/v0.1.12-rust</id>
+    <updated>2016-07-10T01:59:24Z</updated>
+    <link rel="alternate" type="text/html" href="/ghost/project/releases/tag/v0.1.12-rust"/>
+    <title>v0.1.12-rust</title>
+    <content>No content.</content>
+    <author>
+      <name>ghost</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="about:blank"/>
+  </entry>
+  <entry>
+    <id>tag:github.com,2008:Repository/12345678/v0.1.11-rust</id>
+    <updated>2016-07-09T22:47:09Z</updated>
+    <link rel="alternate" type="text/html" href="/ghost/project/releases/tag/v0.1.11-rust"/>
+    <title>v0.1.11-rust</title>
+    <content>No content.</content>
+    <author>
+      <name>ghost</name>
+    </author>
+    <media:thumbnail height="30" width="30" url="about:blank"/>
+  </entry>
+</feed>

@@ -90,9 +90,11 @@ module Thermite
       "#{github_uri}/releases/download/#{tag}/#{config.tarball_filename(version)}"
     end
 
+    # :nocov:
     def http_get(uri)
       Net::HTTP.get(URI(uri))
     end
+    # :nocov:
 
     def each_github_release(github_uri)
       releases_uri = "#{github_uri}/releases.atom"
@@ -111,9 +113,13 @@ module Thermite
       when Net::HTTPClientError
         nil
       when Net::HTTPServerError
-        raise response
+        raise Net::HTTPServerException.new(response.message, response)
       else
-        puts "Downloading latest compiled version (#{version}) from GitHub"
+        unless ENV.key?('THERMITE_TEST')
+          # :nocov:
+          puts "Downloading latest compiled version (#{version}) from GitHub"
+          # :nocov:
+        end
         StringIO.new(http_get(response['location']))
       end
     end
