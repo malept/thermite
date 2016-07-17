@@ -32,7 +32,7 @@ module Thermite
     def test_download_cargo_version_from_github_release
       mock_module(github_releases: true)
       mock_module.config.stubs(:toml).returns(package: { version: '4.5.6' })
-      mock_module.expects(:github_download_uri).with('v4.5.6', '4.5.6').returns('github://')
+      stub_github_download_uri('v4.5.6')
       Net::HTTP.stubs(:get_response).returns('location' => 'redirect')
       mock_module.stubs(:http_get).returns('tarball')
       mock_module.expects(:unpack_tarball).once
@@ -43,7 +43,7 @@ module Thermite
     def test_download_cargo_version_from_github_release_with_custom_git_tag_format
       mock_module(github_releases: true, git_tag_format: 'VER_%s')
       mock_module.config.stubs(:toml).returns(package: { version: '4.5.6' })
-      mock_module.expects(:github_download_uri).with('VER_4.5.6', '4.5.6').returns('github://')
+      stub_github_download_uri('VER_4.5.6')
       Net::HTTP.stubs(:get_response).returns('location' => 'redirect')
       mock_module.stubs(:http_get).returns('tarball')
       mock_module.expects(:unpack_tarball).once
@@ -100,6 +100,11 @@ module Thermite
 
     def described_class
       Tester
+    end
+
+    def stub_github_download_uri(tag)
+      uri = 'https://github.com/user/project/downloads/project-4.5.6.tar.gz'
+      mock_module.expects(:github_download_uri).with(tag, '4.5.6').returns(uri)
     end
 
     def stub_releases_atom
