@@ -6,6 +6,7 @@ module Thermite
       assert_nil described_class.new.debug_filename
       ENV['THERMITE_DEBUG_FILENAME'] = 'foo'
       assert_equal 'foo', described_class.new.debug_filename
+      ENV['THERMITE_DEBUG_FILENAME'] = nil
     end
 
     def test_shared_ext_osx
