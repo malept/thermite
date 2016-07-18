@@ -1,10 +1,11 @@
 # Thermite
 
-[![Build Status](https://travis-ci.org/malept/thermite.svg?branch=master)](https://travis-ci.org/malept/thermite)
+[![Linux/OSX build status](https://travis-ci.org/malept/thermite.svg?branch=master)](https://travis-ci.org/malept/thermite)
+[![Windows build status](https://ci.appveyor.com/api/projects/status/kneo890m3ypoxril?svg=true)](https://ci.appveyor.com/project/malept/thermite)
 [![Code Climate](https://codeclimate.com/github/malept/thermite/badges/gpa.svg)](https://codeclimate.com/github/malept/thermite)
-[![Test Coverage](https://codeclimate.com/github/malept/thermite/badges/coverage.svg)](https://codeclimate.com/github/malept/thermite/coverage)
+[![Test coverage](https://codeclimate.com/github/malept/thermite/badges/coverage.svg)](https://codeclimate.com/github/malept/thermite/coverage)
 [![Inline docs](http://inch-ci.org/github/malept/thermite.svg?branch=master)](http://inch-ci.org/github/malept/thermite)
-[![Gem](https://img.shields.io/gem/v/thermite.svg?maxAge=300000)](https://rubygems.org/gems/thermite)
+[![Gem](https://img.shields.io/gem/v/thermite.svg?maxAge=30000)](https://rubygems.org/gems/thermite)
 
 Thermite is a Rake-based helper for building and distributing Rust-based Ruby extensions.
 

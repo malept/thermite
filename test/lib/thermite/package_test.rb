@@ -1,3 +1,4 @@
+require 'fileutils'
 require 'tmpdir'
 require 'test_helper'
 require 'thermite/package'
@@ -14,18 +15,18 @@ module Thermite
     end
 
     def test_build_package_and_unpack_tarball
-      Dir.mktmpdir do |dir|
-        project_dir = stub_dir(dir, 'project')
-        install_dir = stub_dir(dir, 'install')
-        Dir.mkdir(File.join(install_dir, 'lib'))
-        filename = File.join(dir, 'test-7.8.9.tar.gz')
-        extension_path = stub_extension_path(project_dir)
-        stub_config(project_dir, extension_path, filename)
+      using_temp_dir do |dir, tgz_filename|
+        using_project_dir(stub_dir(dir, 'project')) do |project_dir|
+          extension_path = stub_extension_path(project_dir)
+          stub_config(project_dir, extension_path, tgz_filename)
 
-        mock_module.build_package
+          mock_module.build_package
+        end
 
-        Dir.chdir(install_dir) do
-          mock_module.unpack_tarball(File.open(filename))
+        using_install_dir(stub_dir(dir, 'install')) do |install_dir|
+          File.open(tgz_filename, 'rb') do |f|
+            mock_module.unpack_tarball(f)
+          end
           packed_file = File.join(install_dir, 'lib', 'test.txt')
           assert File.exist?(packed_file), "File '#{packed_file}' does not exist."
           assert_equal 'some extension', File.read(packed_file)
@@ -59,6 +60,32 @@ module Thermite
       File.write(extension_path, 'some extension')
 
       extension_path
+    end
+
+    def using_project_dir(project_dir)
+      yield project_dir
+    ensure
+      FileUtils.rm_rf(project_dir)
+    end
+
+    def using_install_dir(install_dir)
+      Dir.mkdir(File.join(install_dir, 'lib'))
+      Dir.chdir(install_dir) do
+        yield install_dir
+      end
+    ensure
+      FileUtils.rm_rf(install_dir)
+    end
+
+    def using_temp_dir
+      Dir.mktmpdir do |dir|
+        filename = File.join(dir, 'test-7.8.9.tar.gz')
+        begin
+          yield dir, filename
+        ensure
+          FileUtils.rm_f(filename)
+        end
+      end
     end
   end
 end

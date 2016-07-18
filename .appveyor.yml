@@ -1,0 +1,27 @@
+platform:
+  - x86
+  - x64
+environment:
+  matrix:
+    - RUBY_VERSION: 21
+    - RUBY_VERSION: 22
+    - RUBY_VERSION: 23
+cache:
+  - vendor\bundle
+install:
+  - ps: |
+        if ($env:platform -eq 'x86') {
+          $env:WIN_RUBY_BIN = "C:\Ruby${env:RUBY_VERSION}\bin";
+        } else {
+          $env:WIN_RUBY_BIN = "C:\Ruby${env:RUBY_VERSION}-x64\bin";
+        }
+        $env:PATH = "${env:WIN_RUBY_BIN};${env:PATH}";
+  - ruby --version
+  - gem --version
+  - rake --version
+  - bundle --version
+  - bundle config --local path vendor/bundle
+  - bundle install
+build: false
+test_script:
+  - bundle exec rake
