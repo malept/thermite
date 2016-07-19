@@ -2,6 +2,24 @@
 
 ## Unreleased
 
+## [0.5.0] - 2016-07-18
+
+### Added
+
+* Unit tests and code coverage (including new development dependencies)
+* CI support on OSX and Windows in addition to Linux
+* Successful CI builds on Linux trigger rusty_blank CI builds on Linux/OSX/Windows
+
+### Changed
+
+* Documentation uses YARD instead of RDoc
+* `unpack_tarball` is a public method
+
+### Fixed
+
+* Documentation for `debug`
+* Windows platform support
+
 ## [0.4.0] - 2016-07-12
 
 ### Added
@@ -49,6 +67,7 @@
 
 Initial release.
 
+[0.5.0]: https://github.com/malept/thermite/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/malept/thermite/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/malept/thermite/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/malept/thermite/compare/v0.1.0...v0.2.0
