@@ -92,6 +92,7 @@ module Thermite
       @config = Config.new(options)
       @options.merge!(@config.toml_config)
       define_build_task
+      define_build_optional_task
       define_clean_task
       define_test_task
       define_package_task
@@ -110,6 +111,21 @@ module Thermite
                        config.ruby_path('lib'))
         elsif !download_binary
           raise cargo_required_msg
+        end
+      end
+    end
+
+    def define_build_optional_task
+      desc 'Like thermite:build, but will not fail if Rust or download is unavailable.'
+      task 'thermite:build:optional' do
+        # if cargo found, build. Otherwise, grab binary (when github_releases is enabled).
+        if cargo
+          target = ENV.fetch('CARGO_TARGET', 'release')
+          run_cargo_build(target)
+          FileUtils.cp(config.rust_path('target', target, config.shared_library),
+                       config.ruby_path('lib'))
+        elsif !download_binary
+          puts cargo_not_found_msg
         end
       end
     end

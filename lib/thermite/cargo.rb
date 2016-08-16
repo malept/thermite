@@ -69,5 +69,17 @@ it in the PATH, or set the CARGO environment variable appropriately.
 ****
 EOM
     end
+
+    #
+    # Message used when cargo is not found (but not necessarily required).
+    #
+    def cargo_not_found_msg
+      <<EOM
+****
+Rust's Cargo was not found in the PATH or the CARGO environment variable.
+Compilation of native extension will not proceed.
+****
+EOM
+    end
   end
 end
