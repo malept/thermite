@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+### Added
+
+* `optional_build` option to allow the build task to complete even if Cargo is unavailable
+  and `github_releases` are disabled or unavailable. Useful for projects where fallback
+  code exists or where native extension code is desirable but not required.
+
 ## [0.5.0] - 2016-07-18
 
 ### Added
