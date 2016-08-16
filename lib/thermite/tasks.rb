@@ -70,6 +70,8 @@ module Thermite
     #   releases to look for precompiled Rust tarballs. One group must be specified that indicates
     #   the version number to be used in the tarball filename. Defaults to `vN.N.N`, where `N` is
     #   any n-digit number. In this case, the group is around the entire expression.
+    # * `optional_build` - whether to allow the build task to complete even if Cargo cannot be
+    #   found and `github_releases` are disabled or unavailable. Defaults to `false`.
     # * `ruby_project_path` - the toplevel directory of the Ruby gem's project. Defaults to the
     #   current working directory.
     #
@@ -109,7 +111,7 @@ module Thermite
           FileUtils.cp(config.rust_path('target', target, config.shared_library),
                        config.ruby_path('lib'))
         elsif !download_binary
-          raise cargo_required_msg
+          raise cargo_required_msg unless options[:optional_build]
         end
       end
     end
