@@ -44,8 +44,8 @@ etc.:
 bad:
 
 ```
-commit 1: add foo algorithm
-commit 2: run rustfmt
+commit 1: add foo
+commit 2: run rubocop
 commit 3: add test
 commit 4: add docs
 commit 5: add bar
@@ -55,7 +55,7 @@ commit 6: add test + docs
 good:
 
 ```
-commit 1: add foo algorithm
+commit 1: add foo
 commit 2: add bar
 ```
 
