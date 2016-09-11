@@ -59,5 +59,9 @@ commit 1: add foo algorithm
 commit 2: add bar
 ```
 
+Squashing commits during discussion of the pull request is almost always unnecessary, and makes it
+more difficult for both the submitters and reviewers to understand what changed in between comments.
+However, rebasing is encouraged when practical, particularly when there's a merge conflict.
+
 If you are continuing the work of another person's PR and need to rebase/squash, please retain the
 attribution of the original author(s) and continue the work in subsequent commits.
