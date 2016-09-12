@@ -60,6 +60,10 @@ Possible options:
   precompiled Rust tarballs. One group must be specified that indicates the version number to be
   used in the tarball filename. Defaults to `vN.N.N`, where `N` is any n-digit number. In this case,
   the group is around the entire expression.
+* `optional_rust_extension` - prints a warning to STDERR instead of raising an exception, if Cargo
+  is unavailable and `github_releases` is either disabled or unavailable. Useful for projects where
+  either fallback code exists, or a native extension is desirable but not required. Defaults
+  to `false`.
 * `ruby_project_path` - the top-level directory of the Ruby gem's project. Defaults to the
   current working directory.
 

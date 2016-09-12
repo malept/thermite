@@ -58,18 +58,43 @@ module Thermite
       run_cargo(*cargo_args)
     end
 
-    # :nocov:
+    #
+    # Inform the user about cargo if it doesn't exist.
+    #
+    # If `optional_rust_extension` is true, print message to STDERR. Otherwise, raise an exception.
+    #
+    def inform_user_about_cargo
+      raise cargo_required_msg unless options[:optional_rust_extension]
+
+      $stderr.write(cargo_recommended_msg)
+    end
+
+    #
+    # Message used when cargo is not found.
+    #
+    # `require_severity` is the verb that indicates how important Rust is to the library.
+    #
+    def cargo_msg(require_severity)
+      <<EOM
+****
+Rust's Cargo is #{require_severity} to build this extension. Please install
+Rust and put it in the PATH, or set the CARGO environment variable appropriately.
+****
+EOM
+    end
 
     #
     # Message used when cargo is required but not found.
     #
     def cargo_required_msg
-      <<EOM
-****
-Rust's Cargo is required to build this extension. Please install Rust and put
-it in the PATH, or set the CARGO environment variable appropriately.
-****
-EOM
+      cargo_msg('required')
+    end
+
+    #
+    # Message used when cargo is recommended but not found.
+    #
+    def cargo_recommended_msg
+      cargo_msg('recommended (but not required)')
     end
   end
 end
