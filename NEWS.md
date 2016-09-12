@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+### Added
+
+* `optional_rust_extension` option - prints a warning to STDERR instead of raising an exception, if
+  Cargo is unavailable and `github_releases` is either disabled or unavailable. Useful for projects
+  where either fallback code exists, or a native extension is desirable but not required. (#4, #6)
+
 ## [0.5.0] - 2016-07-18
 
 ### Added
