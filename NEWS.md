@@ -2,11 +2,17 @@
 
 ## Unreleased
 
+## [0.6.0] - 2016-09-12
+
 ### Added
 
 * `optional_rust_extension` option - prints a warning to STDERR instead of raising an exception, if
   Cargo is unavailable and `github_releases` is either disabled or unavailable. Useful for projects
   where either fallback code exists, or a native extension is desirable but not required. (#4, #6)
+
+### Fixed
+
+* `cargo` was not being run in the context of the rust project toplevel directory (#7, #8)
 
 ## [0.5.0] - 2016-07-18
 
