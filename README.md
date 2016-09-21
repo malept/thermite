@@ -21,9 +21,15 @@ Thermite is a Rake-based helper for building and distributing Rust-based Ruby ex
 2. In your gemspec, add `Rakefile` to the specification's `extensions` list.
 3. In `Rakefile`, add `require 'thermite/tasks'` and then add the tasks to the file by running:
 
-```ruby
-Thermite::Tasks.new
-```
+  ```ruby
+  Thermite::Tasks.new
+  ```
+
+4. In `Rakefile`, set the default Rake task to `thermite:build`
+
+  ```ruby
+  task default: %w(thermite:build)
+  ```
 
 Run `rake -T` to view all of the available tasks in the `thermite` namespace.
 
