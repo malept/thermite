@@ -57,11 +57,11 @@ module Thermite
       version = config.toml[:package][:version]
       tag = options.fetch(:git_tag_format, 'v%s') % version
       uri = github_download_uri(tag, version)
-      if (tgz = download_binary_from_github_release(uri, version))
-        debug "Unpacking GitHub release from Cargo version: #{File.basename(uri)}"
-        unpack_tarball(tgz)
-        true
-      end
+      return unless (tgz = download_binary_from_github_release(uri, version))
+
+      debug "Unpacking GitHub release from Cargo version: #{File.basename(uri)}"
+      unpack_tarball(tgz)
+      true
     end
 
     #

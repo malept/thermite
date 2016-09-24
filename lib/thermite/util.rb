@@ -28,10 +28,10 @@ module Thermite
     #
     def debug(msg)
       # Should probably replace with a Logger
-      if config.debug_filename
-        @debug ||= File.open(config.debug_filename, 'w')
-        @debug.write("#{msg}\n")
-      end
+      return unless config.debug_filename
+
+      @debug ||= File.open(config.debug_filename, 'w')
+      @debug.write("#{msg}\n")
     end
   end
 end
