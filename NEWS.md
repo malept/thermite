@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added
+
+* Helper module for loading extensions via Fiddle (#13)
+
 ## [0.6.0] - 2016-09-12
 
 ### Added

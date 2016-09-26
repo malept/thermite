@@ -14,6 +14,7 @@ Thermite is a Rake-based helper for building and distributing Rust-based Ruby ex
 * Provides wrappers for `cargo` commands.
 * Handles non-standard `cargo` installations via the `CARGO` environment variable.
 * Opt-in to allow users to install pre-compiled Rust extensions hosted on GitHub releases.
+* Provides a wrapper for initializing a Rust extension via Fiddle.
 
 ## Usage
 
