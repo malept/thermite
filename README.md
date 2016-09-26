@@ -18,18 +18,35 @@ Thermite is a Rake-based helper for building and distributing Rust-based Ruby ex
 
 ## Usage
 
-1. Add `thermite` as a runtime dependency in your gem.
-2. In your gemspec, add `Rakefile` to the specification's `extensions` list.
-3. In `Rakefile`, add `require 'thermite/tasks'` and then add the tasks to the file by running:
+1. Add the following to your gemspec file:
 
   ```ruby
-  Thermite::Tasks.new
+  spec.extensions << 'ext/Rakefile'
+  spec.add_runtime_dependency 'thermite', '~> 0'
   ```
 
-4. In `Rakefile`, set the default Rake task to `thermite:build`
+2. Create `ext/Rakefile` with the following code, assuming that the Cargo project root is the same
+   as the Ruby project root:
 
   ```ruby
+  require 'thermite/tasks'
+
+  project_dir = File.dirname(File.dirname(__FILE__))
+  Thermite::Tasks.new(cargo_project_path: project_dir, ruby_project_path: project_dir)
   task default: %w(thermite:build)
+  ```
+
+3. In `Rakefile`, integrate Thermite into your build-test workflow:
+
+  ```ruby
+  require 'thermite/tasks'
+
+  Thermite::Tasks.new
+
+  desc 'Run Rust & Ruby testsuites'
+  task test: ['thermite:build', 'thermite:test'] do
+    # …
+  end
   ```
 
 Run `rake -T` to view all of the available tasks in the `thermite` namespace.
