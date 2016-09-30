@@ -22,7 +22,7 @@ When filing a bug, please include the following information:
 * If it's an error related to Rust, the version of Rust, Cargo, and how you installed it.
 * A detailed list of steps to reproduce the bug. A minimal testcase would be very helpful,
   if possible.
-* If there any any error messages in the console, copying them in the bug summary will be
+* If there are any error messages in the console, copying them in the bug summary will be
   very helpful.
 
 ## Filing Pull Requests
