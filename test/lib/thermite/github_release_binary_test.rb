@@ -18,7 +18,7 @@ module Thermite
       mock_module.expects(:download_latest_binary_from_github_release).never
       mock_module.expects(:download_cargo_version_from_github_release).never
 
-      assert !mock_module.download_binary
+      assert !mock_module.download_binary_from_github_release
     end
 
     def test_github_release_type_defaults_to_cargo
@@ -26,7 +26,7 @@ module Thermite
       mock_module.expects(:download_latest_binary_from_github_release).never
       mock_module.expects(:download_cargo_version_from_github_release).once
 
-      mock_module.download_binary
+      mock_module.download_binary_from_github_release
     end
 
     def test_download_cargo_version_from_github_release
@@ -37,7 +37,7 @@ module Thermite
       mock_module.stubs(:http_get).returns('tarball')
       mock_module.expects(:unpack_tarball).once
 
-      assert mock_module.download_binary
+      assert mock_module.download_binary_from_github_release
     end
 
     def test_download_cargo_version_from_github_release_with_custom_git_tag_format
@@ -48,7 +48,7 @@ module Thermite
       mock_module.stubs(:http_get).returns('tarball')
       mock_module.expects(:unpack_tarball).once
 
-      assert mock_module.download_binary
+      assert mock_module.download_binary_from_github_release
     end
 
     def test_download_cargo_version_from_github_release_with_client_error
@@ -56,7 +56,7 @@ module Thermite
       mock_module.config.stubs(:toml).returns(package: { version: '4.5.6' })
       Net::HTTP.stubs(:get_response).returns(Net::HTTPClientError.new('1.1', 403, 'Forbidden'))
 
-      assert !mock_module.download_binary
+      assert !mock_module.download_binary_from_github_release
     end
 
     def test_download_cargo_version_from_github_release_with_server_error
@@ -66,17 +66,17 @@ module Thermite
       Net::HTTP.stubs(:get_response).returns(server_error)
 
       assert_raises Net::HTTPServerException do
-        mock_module.download_binary
+        mock_module.download_binary_from_github_release
       end
     end
 
     def test_download_latest_binary_from_github_release
       mock_module(github_releases: true, github_release_type: 'latest', git_tag_regex: 'v(.*)-rust')
       stub_releases_atom
-      mock_module.stubs(:download_binary_from_github_release).returns(StringIO.new('tarball'))
+      mock_module.stubs(:download_versioned_github_release_binary).returns(StringIO.new('tarball'))
       mock_module.expects(:unpack_tarball).once
 
-      assert mock_module.download_binary
+      assert mock_module.download_binary_from_github_release
     end
 
     def test_download_latest_binary_from_github_release_no_releases_match_regex
@@ -84,16 +84,16 @@ module Thermite
       stub_releases_atom
       mock_module.expects(:github_download_uri).never
 
-      assert !mock_module.download_binary
+      assert !mock_module.download_binary_from_github_release
     end
 
     def test_download_latest_binary_from_github_release_no_tarball_found
       mock_module(github_releases: true, github_release_type: 'latest', git_tag_regex: 'v(.*)-rust')
       stub_releases_atom
-      mock_module.stubs(:download_binary_from_github_release).returns(nil)
+      mock_module.stubs(:download_versioned_github_release_binary).returns(nil)
       mock_module.expects(:unpack_tarball).never
 
-      assert !mock_module.download_binary
+      assert !mock_module.download_binary_from_github_release
     end
 
     private

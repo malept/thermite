@@ -112,7 +112,7 @@ module Thermite
           run_cargo_build(target)
           FileUtils.cp(config.rust_path('target', target, config.shared_library),
                        config.ruby_path('lib'))
-        elsif !download_binary
+        elsif !download_binary_from_github_release
           inform_user_about_cargo
         end
       end

@@ -40,7 +40,7 @@ module Thermite
     #
     # Returns whether a binary was found and unpacked.
     #
-    def download_binary
+    def download_binary_from_github_release
       return false unless options[:github_releases]
 
       case options[:github_release_type]
@@ -57,7 +57,7 @@ module Thermite
       version = config.toml[:package][:version]
       tag = options.fetch(:git_tag_format, 'v%s') % version
       uri = github_download_uri(tag, version)
-      return unless (tgz = download_binary_from_github_release(uri, version))
+      return unless (tgz = download_versioned_github_release_binary(uri, version))
 
       debug "Unpacking GitHub release from Cargo version: #{File.basename(uri)}"
       unpack_tarball(tgz)
@@ -71,7 +71,7 @@ module Thermite
     def download_latest_binary_from_github_release
       installed_binary = false
       each_github_release(github_uri) do |version, download_uri|
-        tgz = download_binary_from_github_release(download_uri, version)
+        tgz = download_versioned_github_release_binary(download_uri, version)
         next unless tgz
         debug "Unpacking GitHub release: #{File.basename(download_uri)}"
         unpack_tarball(tgz)
@@ -108,7 +108,7 @@ module Thermite
       end
     end
 
-    def download_binary_from_github_release(uri, version)
+    def download_versioned_github_release_binary(uri, version)
       case (response = Net::HTTP.get_response(URI(uri)))
       when Net::HTTPClientError
         nil
