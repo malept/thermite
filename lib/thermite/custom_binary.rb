@@ -19,41 +19,47 @@
 # OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 require 'net/http'
+require 'uri'
 
 module Thermite
   #
-  # Utility methods
+  # Custom binary URI helpers.
   #
-  module Util
+  module CustomBinary
     #
-    # Logs a debug message to the specified `config.debug_filename`, if set.
+    # Downloads a Rust binary using a custom URI format, given the target OS and architecture.
     #
-    def debug(msg)
-      # Should probably replace with a Logger
-      return unless config.debug_filename
+    # Requires the `binary_uri_format` option to be set. The version of the binary is determined by
+    # the crate version given in `Cargo.toml`.
+    #
+    # Returns whether a binary was found and unpacked.
+    #
+    def download_binary_from_custom_uri
+      return false unless config.binary_uri_format
 
-      @debug ||= File.open(config.debug_filename, 'w')
-      @debug.write("#{msg}\n")
+      version = config.crate_version
+      uri ||= config.binary_uri_format % {
+        filename: config.tarball_filename(version),
+        version: version
+      }
+
+      return false unless (tgz = download_versioned_binary(uri, version))
+
+      debug "Unpacking binary from Cargo version: #{File.basename(uri)}"
+      unpack_tarball(tgz)
+      true
     end
 
-    #
-    # Wrapper for a Net::HTTP GET request that handles redirects.
-    #
-    # :nocov:
-    def http_get(uri, retries_left = 10)
-      raise RedirectError, 'Too many redirects' if retries_left.zero?
+    private
 
-      case (response = Net::HTTP.get_response(URI(uri)))
-      when Net::HTTPClientError
-        nil
-      when Net::HTTPServerError
-        raise Net::HTTPServerException.new(response.message, response)
-      when Net::HTTPFound, Net::HTTPPermanentRedirect
-        http_get(response['location'], retries_left - 1)
-      else
-        StringIO.new(response.value)
+    def download_versioned_binary(uri, version)
+      unless ENV.key?('THERMITE_TEST')
+        # :nocov:
+        puts "Downloading compiled version (#{version})"
+        # :nocov:
       end
+
+      http_get(uri)
     end
-    # :nocov:
   end
 end

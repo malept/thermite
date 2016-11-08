@@ -14,6 +14,7 @@ Thermite is a Rake-based helper for building and distributing Rust-based Ruby ex
 * Provides wrappers for `cargo` commands.
 * Handles non-standard `cargo` installations via the `CARGO` environment variable.
 * Opt-in to allow users to install pre-compiled Rust extensions hosted on GitHub releases.
+* Opt-in to allow users to install pre-compiled Rust extensions hosted on a third party server.
 * Provides a wrapper for initializing a Rust extension via Fiddle.
 
 ## Usage
@@ -68,6 +69,13 @@ github_releases = true
 
 Possible options:
 
+* `binary_uri_format` - if set, the interpolation-formatted string used to construct the download
+  URI for the pre-built native extension. If the environment variable `THERMITE_BINARY_URI_FORMAT`
+  is set, it takes precedence over this option. Either method of setting this option overrides the
+  `github_releases` option.
+  Example: `https://example.com/download/%{version}/%{filename}`. Replacement variables:
+    - `filename` - The value of `Config.tarball_filename`
+    - `version` - the crate version from `Cargo.toml`
 * `cargo_project_path` - the path to the Cargo project. Defaults to the current working directory.
 * `github_releases` - whether to look for Rust binaries via GitHub releases when installing
   the gem, and `cargo` is not found. Defaults to `false`.
