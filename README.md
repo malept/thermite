@@ -49,7 +49,7 @@ Thermite is a Rake-based helper for building and distributing Rust-based Ruby ex
   end
   ```
 
-Run `rake -T` to view all of the available tasks in the `thermite` namespace.
+Run `rake -T thermite` to view all of the available tasks in the `thermite` namespace.
 
 ### Configuration
 
