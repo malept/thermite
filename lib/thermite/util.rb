@@ -51,7 +51,7 @@ module Thermite
       when Net::HTTPFound, Net::HTTPPermanentRedirect
         http_get(response['location'], retries_left - 1)
       else
-        StringIO.new(response.value)
+        StringIO.new(response.body)
       end
     end
     # :nocov:
