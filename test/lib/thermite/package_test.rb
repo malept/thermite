@@ -21,15 +21,18 @@ module Thermite
           stub_config(project_dir, extension_path, tgz_filename)
 
           mock_module.build_package
-        end
+          FileUtils.rm_f(extension_path)
 
-        using_install_dir(stub_dir(dir, 'install')) do |install_dir|
-          File.open(tgz_filename, 'rb') do |f|
-            mock_module.unpack_tarball(f)
+          # This simulates having an extension build via `install/Rakefile` instead of the
+          # top-level Rakefile.
+          using_install_dir(stub_dir(dir, 'install')) do
+            assert_file_created(extension_path) do
+              File.open(tgz_filename, 'rb') do |f|
+                mock_module.unpack_tarball(f)
+              end
+            end
+            assert_equal 'some extension', File.read(extension_path)
           end
-          packed_file = File.join(install_dir, 'lib', 'test.txt')
-          assert File.exist?(packed_file), "File '#{packed_file}' does not exist."
-          assert_equal 'some extension', File.read(packed_file)
         end
       end
     end
@@ -86,6 +89,12 @@ module Thermite
           FileUtils.rm_f(filename)
         end
       end
+    end
+
+    def assert_file_created(filename)
+      refute File.exist?(filename), "File '#{filename}' already exists."
+      yield
+      assert File.exist?(filename), "File '#{filename}' does not exist."
     end
   end
 end
