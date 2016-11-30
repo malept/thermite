@@ -34,6 +34,7 @@ module Thermite
 
       @debug ||= File.open(config.debug_filename, 'w')
       @debug.write("#{msg}\n")
+      @debug.flush
     end
 
     #
