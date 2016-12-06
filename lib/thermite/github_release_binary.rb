@@ -54,10 +54,10 @@ module Thermite
     private
 
     def download_cargo_version_from_github_release
-      version = config.toml[:package][:version]
+      version = config.crate_version
       tag = options.fetch(:git_tag_format, 'v%s') % version
       uri = github_download_uri(tag, version)
-      return unless (tgz = download_versioned_github_release_binary(uri, version))
+      return false unless (tgz = download_versioned_github_release_binary(uri, version))
 
       debug "Unpacking GitHub release from Cargo version: #{File.basename(uri)}"
       unpack_tarball(tgz)
@@ -90,12 +90,6 @@ module Thermite
       "#{github_uri}/releases/download/#{tag}/#{config.tarball_filename(version)}"
     end
 
-    # :nocov:
-    def http_get(uri)
-      Net::HTTP.get(URI(uri))
-    end
-    # :nocov:
-
     def each_github_release(github_uri)
       releases_uri = "#{github_uri}/releases.atom"
       feed = REXML::Document.new(http_get(releases_uri))
@@ -109,19 +103,13 @@ module Thermite
     end
 
     def download_versioned_github_release_binary(uri, version)
-      case (response = Net::HTTP.get_response(URI(uri)))
-      when Net::HTTPClientError
-        nil
-      when Net::HTTPServerError
-        raise Net::HTTPServerException.new(response.message, response)
-      else
-        unless ENV.key?('THERMITE_TEST')
-          # :nocov:
-          puts "Downloading latest compiled version (#{version}) from GitHub"
-          # :nocov:
-        end
-        StringIO.new(http_get(response['location']))
+      unless ENV.key?('THERMITE_TEST')
+        # :nocov:
+        puts "Downloading compiled version (#{version}) from GitHub"
+        # :nocov:
       end
+
+      http_get(uri)
     end
   end
 end

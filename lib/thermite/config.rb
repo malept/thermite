@@ -59,6 +59,17 @@ module Thermite
     end
 
     #
+    # The interpolation-formatted string used to construct the download URI for the pre-built
+    # native extension. Can be set via the `THERMITE_BINARY_URI_FORMAT` environment variable, or a
+    # `binary_uri_format` option.
+    #
+    def binary_uri_format
+      @binary_uri_format ||= ENV['THERMITE_BINARY_URI_FORMAT'] ||
+                             @options[:binary_uri_format] ||
+                             false
+    end
+
+    #
     # The major and minor version of the Ruby interpreter that's currently running.
     #
     def ruby_version
@@ -178,6 +189,13 @@ module Thermite
     #
     def toml
       @toml ||= Tomlrb.load_file(rust_path('Cargo.toml'), symbolize_keys: true)
+    end
+
+    #
+    # Alias to the crate version specified in the TOML file.
+    #
+    def crate_version
+      toml[:package][:version]
     end
 
     #

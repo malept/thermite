@@ -22,6 +22,7 @@ require 'fileutils'
 require 'rake/tasklib'
 require 'thermite/cargo'
 require 'thermite/config'
+require 'thermite/custom_binary'
 require 'thermite/github_release_binary'
 require 'thermite/package'
 require 'thermite/util'
@@ -40,6 +41,7 @@ module Thermite
   #
   class Tasks < Rake::TaskLib
     include Thermite::Cargo
+    include Thermite::CustomBinary
     include Thermite::GithubReleaseBinary
     include Thermite::Package
     include Thermite::Util
@@ -52,6 +54,13 @@ module Thermite
     #
     # Possible configuration options for Thermite tasks:
     #
+    # * `binary_uri_format` - if set, the interpolation-formatted string used to construct the
+    #   download URI for the pre-built native extension. If the environment variable
+    #   `THERMITE_BINARY_URI_FORMAT` is set, it takes precedence over this option. Either method of
+    #   setting this option overrides the `github_releases` option.
+    #   Example: `https://example.com/download/%{version}/%{filename}`. Replacement variables:
+    #     - `filename` - The value of {Config#tarball_filename}
+    #     - `version` - the crate version from the `Cargo.toml` file
     # * `cargo_project_path` - the path to the Cargo project. Defaults to the current
     #   working directory.
     # * `github_releases` - whether to look for rust binaries via GitHub releases when installing
@@ -112,7 +121,7 @@ module Thermite
           run_cargo_build(target)
           FileUtils.cp(config.rust_path('target', target, config.shared_library),
                        config.ruby_path('lib'))
-        elsif !download_binary_from_github_release
+        elsif !download_binary_from_custom_uri && !download_binary_from_github_release
           inform_user_about_cargo
         end
       end

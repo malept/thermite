@@ -45,15 +45,25 @@ module Thermite
     # working directory.
     #
     def unpack_tarball(tgz)
+      Dir.chdir(config.ruby_toplevel_dir) do
+        each_compressed_file(tgz) do |path, entry|
+          debug "Unpacking file: #{path}"
+          File.open(path, 'wb') do |f|
+            f.write(entry.read)
+          end
+        end
+      end
+    end
+
+    private
+
+    def each_compressed_file(tgz)
       Zlib::GzipReader.wrap(tgz) do |gz|
         Gem::Package::TarReader.new(gz) do |tar|
           tar.each do |entry|
             path = entry.header.name
             next if path.end_with?('/')
-            debug "Unpacking file: #{path}"
-            File.open(path, 'wb') do |f|
-              f.write(entry.read)
-            end
+            yield path, entry
           end
         end
       end
