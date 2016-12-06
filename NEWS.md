@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+## [0.8.0] - 2016-12-05
+
+### Added
+
+* Support for binary download URIs from non-GitHub sources (#17)
+
+### Changed
+
+* Tarballs are installed relative to `ruby_project_path`
+
 ## [0.7.0] - 2016-09-26
 
 ### Added
