@@ -99,13 +99,12 @@ module Thermite
     #
     # The name of the library compiled by Rust.
     #
+    # Due to the way that Cargo works, all hyphens in library names are replaced with underscores.
+    #
     def library_name
       @library_name ||= begin
-        if toml[:lib] && toml[:lib][:name]
-          toml[:lib][:name]
-        else
-          toml[:package][:name]
-        end
+        base = toml[:lib] && toml[:lib][:name] ? toml[:lib] : toml[:package]
+        base[:name].tr('-', '_') if base[:name]
       end
     end
 
