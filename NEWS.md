@@ -5,6 +5,7 @@
 ### Fixed
 
 * The library name is consistent with how Cargo handles hyphens (#19)
+* Raise error if using GitHub Releases & repository not in `Cargo.toml` (#18)
 
 ## [0.8.0] - 2016-12-05
 
