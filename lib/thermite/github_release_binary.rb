@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 # frozen_string_literal: true
 #
-# Copyright (c) 2016 Mark Lee and contributors
+# Copyright (c) 2016, 2017 Mark Lee and contributors
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 # associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -83,7 +83,13 @@ module Thermite
     end
 
     def github_uri
-      @github_uri ||= config.toml[:package][:repository]
+      @github_uri ||= begin
+        unless (repository = config.toml[:package][:repository])
+          raise KeyError, 'No repository found in Config.toml'
+        end
+
+        repository
+      end
     end
 
     def github_download_uri(tag, version)

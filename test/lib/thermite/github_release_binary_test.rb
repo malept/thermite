@@ -1,3 +1,23 @@
+# -*- encoding: utf-8 -*-
+# frozen_string_literal: true
+#
+# Copyright (c) 2016, 2017 Mark Lee and contributors
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+# associated documentation files (the "Software"), to deal in the Software without restriction,
+# including without limitation the rights to use, copy, modify, merge, publish, distribute,
+# sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all copies or
+# substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+# NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+# DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT
+# OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
 require 'tmpdir'
 require 'test_helper'
 require 'thermite/github_release_binary'
@@ -51,9 +71,23 @@ module Thermite
       assert mock_module.download_binary_from_github_release
     end
 
-    def test_download_cargo_version_from_github_release_with_client_error
+    def test_download_cargo_version_from_github_release_with_no_repository
       mock_module(github_releases: true)
       mock_module.config.stubs(:toml).returns(package: { version: '4.5.6' })
+
+      assert_raises KeyError do
+        mock_module.download_binary_from_github_release
+      end
+    end
+
+    def test_download_cargo_version_from_github_release_with_client_error
+      mock_module(github_releases: true)
+      mock_module.config.stubs(:toml).returns(
+        package: {
+          repository: 'test/test',
+          version: '4.5.6'
+        }
+      )
       Net::HTTP.stubs(:get_response).returns(Net::HTTPClientError.new('1.1', 403, 'Forbidden'))
 
       assert !mock_module.download_binary_from_github_release
@@ -61,7 +95,12 @@ module Thermite
 
     def test_download_cargo_version_from_github_release_with_server_error
       mock_module(github_releases: true)
-      mock_module.config.stubs(:toml).returns(package: { version: '4.5.6' })
+      mock_module.config.stubs(:toml).returns(
+        package: {
+          repository: 'test/test',
+          version: '4.5.6'
+        }
+      )
       server_error = Net::HTTPServerError.new('1.1', 500, 'Internal Server Error')
       Net::HTTP.stubs(:get_response).returns(server_error)
 
