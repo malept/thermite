@@ -41,6 +41,16 @@ module Thermite
       assert_equal 'barbaz', config.library_name
     end
 
+    def test_library_name_from_cargo_lib_has_no_hyphens
+      config.stubs(:toml).returns(lib: { name: 'foo-bar' }, package: { name: 'bar-baz' })
+      assert_equal 'foo_bar', config.library_name
+    end
+
+    def test_library_name_from_cargo_package_has_no_hyphens
+      config.stubs(:toml).returns(lib: {}, package: { name: 'bar-baz' })
+      assert_equal 'bar_baz', config.library_name
+    end
+
     def test_shared_library
       config.stubs(:library_name).returns('foobar')
       config.stubs(:shared_ext).returns('ext')

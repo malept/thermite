@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Fixed
+
+* The library name is consistent with how Cargo handles hyphens (#19)
+
 ## [0.8.0] - 2016-12-05
 
 ### Added
