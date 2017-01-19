@@ -38,10 +38,11 @@ module Thermite
       return false unless config.binary_uri_format
 
       version = config.crate_version
-      uri ||= config.binary_uri_format % {
+      uri ||= format(
+        config.binary_uri_format,
         filename: config.tarball_filename(version),
         version: version
-      }
+      )
 
       return false unless (tgz = download_versioned_binary(uri, version))
 
