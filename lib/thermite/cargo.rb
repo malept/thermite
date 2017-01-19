@@ -38,7 +38,7 @@ module Thermite
     #
     def run_cargo(*args)
       Dir.chdir(config.rust_toplevel_dir) do
-        sh "#{cargo} #{Shellwords.join(args)}"
+        sh %Q("#{cargo}" #{Shellwords.join(args)})
       end
     end
 
