@@ -116,7 +116,7 @@ EOM
         args.push(
           '--',
           '-C',
-          "link-args=#{Shellwords.escape(config.dynamic_linker_flags)}"
+          "link-args=#{config.dynamic_linker_flags}"
         )
       end
 
