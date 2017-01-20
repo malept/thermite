@@ -212,6 +212,8 @@ module Thermite
       end
     end
 
+    # :nocov:
+
     #
     # Linker flags for libruby.
     #
@@ -220,8 +222,6 @@ module Thermite
     end
 
     private
-
-    # :nocov:
 
     def dlext
       RbConfig::CONFIG['DLEXT']
