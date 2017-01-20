@@ -212,19 +212,19 @@ module Thermite
       end
     end
 
+    #
+    # Linker flags for libruby.
+    #
+    def dynamic_linker_flags
+      @dynamic_linker_flags ||= RbConfig::CONFIG['DLDFLAGS']
+    end
+
     private
 
     # :nocov:
 
     def dlext
       RbConfig::CONFIG['DLEXT']
-    end
-
-    #
-    # Linker flags for libruby.
-    #
-    def dynamic_linker_flags
-      @dynamic_linker_flags ||= RbConfig::CONFIG['DLDFLAGS']
     end
 
     def rbconfig_ruby_version
