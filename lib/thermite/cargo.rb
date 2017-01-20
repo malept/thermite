@@ -65,7 +65,6 @@ module Thermite
       cargo_args = %w(rustc)
       cargo_args << '--release' if target == 'release'
       cargo_args.push(*cargo_rustc_args)
-      puts "Running: cargo #{cargo_args.join}"
       run_cargo(*cargo_args)
     end
 
