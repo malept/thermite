@@ -118,7 +118,8 @@ module Thermite
         # if cargo found, build. Otherwise, grab binary (when github_releases is enabled).
         if cargo
           target = ENV.fetch('CARGO_TARGET', 'release')
-          run_cargo_build(target)
+          # run_cargo_build(target)
+          run_cargo_rustc(target)
           FileUtils.cp(config.rust_path('target', target, config.shared_library),
                        config.ruby_path('lib'))
         elsif !download_binary_from_custom_uri && !download_binary_from_github_release

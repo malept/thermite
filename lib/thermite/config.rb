@@ -220,6 +220,13 @@ module Thermite
       RbConfig::CONFIG['DLEXT']
     end
 
+    #
+    # Linker flags for libruby.
+    #
+    def dynamic_linker_flags
+      @dynamic_linker_flags ||= RbConfig::CONFIG['DLDFLAGS']
+    end
+
     def rbconfig_ruby_version
       RbConfig::CONFIG['ruby_version']
     end

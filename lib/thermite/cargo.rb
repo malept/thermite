@@ -59,6 +59,17 @@ module Thermite
     end
 
     #
+    # Run `cargo rustc`, given a target (i.e., `release [default] or `debug`).
+    #
+    def run_cargo_rustc(target)
+      cargo_args = %w(rustc)
+      cargo_args << '--release' if target == 'release'
+      cargo_args.push(*cargo_rustc_args)
+      puts "Running: cargo #{cargo_args.join}"
+      run_cargo(*cargo_args)
+    end
+
+    #
     # Inform the user about cargo if it doesn't exist.
     #
     # If `optional_rust_extension` is true, print message to STDERR. Otherwise, raise an exception.
@@ -95,6 +106,21 @@ EOM
     #
     def cargo_recommended_msg
       cargo_msg('recommended (but not required)')
+    end
+
+    private
+
+    def cargo_rustc_args
+      args = []
+      unless config.dynamic_linker_flags == ''
+        args.push(
+          '--',
+          '-C',
+          "link-args=#{Shellwords.escape(config.dynamic_linker_flags)}"
+        )
+      end
+
+      args
     end
   end
 end
