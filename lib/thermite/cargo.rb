@@ -50,15 +50,6 @@ module Thermite
     end
 
     #
-    # Run `cargo build`, given a target (i.e., `release` [default] or `debug`).
-    #
-    def run_cargo_build(target)
-      cargo_args = %w(build)
-      cargo_args << '--release' if target == 'release'
-      run_cargo(*cargo_args)
-    end
-
-    #
     # Run `cargo rustc`, given a target (i.e., `release [default] or `debug`).
     #
     def run_cargo_rustc(target)
