@@ -22,14 +22,22 @@ module Thermite
       mock_module.run_cargo_if_exists('foo', 'bar')
     end
 
-    def test_run_cargo_debug_build
-      mock_module.expects(:run_cargo).with('build').once
-      mock_module.run_cargo_build('debug')
+    def test_run_cargo_debug_rustc
+      mock_module.config.stubs(:dynamic_linker_flags).returns('')
+      mock_module.expects(:run_cargo).with('rustc').once
+      mock_module.run_cargo_rustc('debug')
     end
 
-    def test_run_cargo_release_build
-      mock_module.expects(:run_cargo).with('build', '--release').once
-      mock_module.run_cargo_build('release')
+    def test_run_cargo_release_rustc
+      mock_module.config.stubs(:dynamic_linker_flags).returns('')
+      mock_module.expects(:run_cargo).with('rustc', '--release').once
+      mock_module.run_cargo_rustc('release')
+    end
+
+    def test_run_cargo_rustc_with_dynamic_linker_flags
+      mock_module.config.stubs(:dynamic_linker_flags).returns('foo bar')
+      mock_module.expects(:run_cargo).with('rustc', '--', '-C', 'link-args=foo bar').once
+      mock_module.run_cargo_rustc('debug')
     end
 
     def test_inform_user_about_cargo_exception

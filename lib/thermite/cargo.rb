@@ -50,11 +50,12 @@ module Thermite
     end
 
     #
-    # Run `cargo build`, given a target (i.e., `release` [default] or `debug`).
+    # Run `cargo rustc`, given a target (i.e., `release` [default] or `debug`).
     #
-    def run_cargo_build(target)
-      cargo_args = %w(build)
+    def run_cargo_rustc(target)
+      cargo_args = %w(rustc)
       cargo_args << '--release' if target == 'release'
+      cargo_args.push(*cargo_rustc_args)
       run_cargo(*cargo_args)
     end
 
@@ -95,6 +96,21 @@ EOM
     #
     def cargo_recommended_msg
       cargo_msg('recommended (but not required)')
+    end
+
+    private
+
+    def cargo_rustc_args
+      args = []
+      unless config.dynamic_linker_flags == ''
+        args.push(
+          '--',
+          '-C',
+          "link-args=#{config.dynamic_linker_flags}"
+        )
+      end
+
+      args
     end
   end
 end
