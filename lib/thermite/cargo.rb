@@ -50,7 +50,7 @@ module Thermite
     end
 
     #
-    # Run `cargo rustc`, given a target (i.e., `release [default] or `debug`).
+    # Run `cargo rustc`, given a target (i.e., `release` [default] or `debug`).
     #
     def run_cargo_rustc(target)
       cargo_args = %w(rustc)
