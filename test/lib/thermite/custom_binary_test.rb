@@ -26,6 +26,7 @@ module Thermite
       Net::HTTP.stubs(:get_response).returns('location' => 'redirect')
       mock_module.stubs(:http_get).returns('tarball')
       mock_module.expects(:unpack_tarball).once
+      mock_module.expects(:prepare_downloaded_library).once
 
       assert mock_module.download_binary_from_custom_uri
     end

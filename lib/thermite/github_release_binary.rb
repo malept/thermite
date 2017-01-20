@@ -61,6 +61,7 @@ module Thermite
 
       debug "Unpacking GitHub release from Cargo version: #{File.basename(uri)}"
       unpack_tarball(tgz)
+      prepare_downloaded_library
       true
     end
 
@@ -75,6 +76,7 @@ module Thermite
         next unless tgz
         debug "Unpacking GitHub release: #{File.basename(download_uri)}"
         unpack_tarball(tgz)
+        prepare_downloaded_library
         installed_binary = true
         break
       end

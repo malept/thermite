@@ -48,6 +48,7 @@ module Thermite
 
       debug "Unpacking binary from Cargo version: #{File.basename(uri)}"
       unpack_tarball(tgz)
+      prepare_downloaded_library
       true
     end
 

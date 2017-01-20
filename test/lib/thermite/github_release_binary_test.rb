@@ -56,6 +56,7 @@ module Thermite
       Net::HTTP.stubs(:get_response).returns('location' => 'redirect')
       mock_module.stubs(:http_get).returns('tarball')
       mock_module.expects(:unpack_tarball).once
+      mock_module.expects(:prepare_downloaded_library).once
 
       assert mock_module.download_binary_from_github_release
     end
@@ -67,6 +68,7 @@ module Thermite
       Net::HTTP.stubs(:get_response).returns('location' => 'redirect')
       mock_module.stubs(:http_get).returns('tarball')
       mock_module.expects(:unpack_tarball).once
+      mock_module.expects(:prepare_downloaded_library).once
 
       assert mock_module.download_binary_from_github_release
     end
@@ -114,6 +116,7 @@ module Thermite
       stub_releases_atom
       mock_module.stubs(:download_versioned_github_release_binary).returns(StringIO.new('tarball'))
       mock_module.expects(:unpack_tarball).once
+      mock_module.expects(:prepare_downloaded_library).once
 
       assert mock_module.download_binary_from_github_release
     end
@@ -131,6 +134,7 @@ module Thermite
       stub_releases_atom
       mock_module.stubs(:download_versioned_github_release_binary).returns(nil)
       mock_module.expects(:unpack_tarball).never
+      mock_module.expects(:prepare_downloaded_library).never
 
       assert !mock_module.download_binary_from_github_release
     end

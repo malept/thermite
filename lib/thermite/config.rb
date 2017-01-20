@@ -142,6 +142,17 @@ module Thermite
       File.join(ruby_toplevel_dir, *path_components)
     end
 
+    # :nocov:
+
+    #
+    # Absolute path to the shared libruby.
+    #
+    def libruby_path
+      @libruby_path ||= File.join(RbConfig::CONFIG['libdir'], RbConfig::CONFIG['LIBRUBY_SO'])
+    end
+
+    # :nocov:
+
     #
     # The top-level directory of the Cargo project. Defaults to the current working directory.
     #

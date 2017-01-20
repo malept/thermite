@@ -33,6 +33,7 @@ module Thermite
     def build_package
       filename = config.tarball_filename(config.toml[:package][:version])
       relative_library_path = config.ruby_extension_path.sub("#{config.ruby_toplevel_dir}/", '')
+      prepare_built_library
       Zlib::GzipWriter.open(filename) do |tgz|
         Dir.chdir(config.ruby_toplevel_dir) do
           Archive::Tar::Minitar.pack(relative_library_path, tgz)
@@ -55,6 +56,19 @@ module Thermite
       end
     end
 
+    # :nocov:
+
+    def prepare_downloaded_library
+      return unless config.target_os.start_with?('darwin')
+
+      libruby_path = Shellwords.escape(config.libruby_path)
+      library_path = Shellwords.escape(config.ruby_extension_path)
+      `install_name_tool -id #{library_path} #{library_path}`
+      `install_name_tool -change @libruby_path@ #{libruby_path} #{library_path}`
+    end
+
+    # :nocov:
+
     private
 
     def each_compressed_file(tgz)
@@ -67,6 +81,16 @@ module Thermite
           end
         end
       end
+    end
+
+    # :nocov:
+
+    def prepare_built_library
+      return unless config.target_os.start_with?('darwin')
+
+      libruby_path = Shellwords.escape(config.libruby_path)
+      library_path = Shellwords.escape(config.ruby_extension_path)
+      `install_name_tool -change #{libruby_path} @libruby_path@ #{library_path}`
     end
   end
 end
