@@ -38,7 +38,8 @@ module Thermite
     #
     def run_cargo(*args)
       Dir.chdir(config.rust_toplevel_dir) do
-        sh "#{cargo} #{Shellwords.join(args)}"
+        shell_args = config.target_os == 'mingw32' ? args.join(' ') : Shellwords.join(args)
+        sh "#{cargo} #{shell_args}"
       end
     end
 
