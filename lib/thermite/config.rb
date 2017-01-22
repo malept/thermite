@@ -229,7 +229,7 @@ module Thermite
     # Linker flags for libruby.
     #
     def dynamic_linker_flags
-      @dynamic_linker_flags ||= RbConfig::CONFIG['DLDFLAGS']
+      @dynamic_linker_flags ||= RbConfig::CONFIG['DLDFLAGS'].strip
     end
 
     private
