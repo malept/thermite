@@ -103,7 +103,7 @@ EOM
 
     def cargo_rustc_args
       args = []
-      unless config.dynamic_linker_flags == '' || config.target_os == 'win32'
+      unless config.dynamic_linker_flags == '' || config.target_os == 'mingw32'
         args.push(
           '--',
           '-C',
