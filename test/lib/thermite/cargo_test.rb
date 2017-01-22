@@ -36,7 +36,11 @@ module Thermite
 
     def test_run_cargo_rustc_with_dynamic_linker_flags
       mock_module.config.stubs(:dynamic_linker_flags).returns('foo bar')
-      mock_module.expects(:run_cargo).with('rustc', '--', '-C', 'link-args=foo bar').once
+      if RbConfig::CONFIG['target_os'] == 'mingw32'
+        mock_module.expects(:run_cargo).with('rustc').once
+      else
+        mock_module.expects(:run_cargo).with('rustc', '--', '-C', 'link-args=foo bar').once
+      end
       mock_module.run_cargo_rustc('debug')
     end
 
