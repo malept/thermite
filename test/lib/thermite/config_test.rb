@@ -109,6 +109,12 @@ module Thermite
       assert_equal '/tmp/foobar/baz/quux', config.rust_path('baz', 'quux')
     end
 
+    def test_cargo_toml_path_with_workspace_member
+      FileUtils.stubs(:pwd).returns('/tmp/foobar')
+      config(cargo_workspace_member: 'baz')
+      assert_equal '/tmp/foobar/baz/Cargo.toml', config.cargo_toml_path
+    end
+
     def test_default_git_tag_regex
       assert_equal described_class::DEFAULT_TAG_REGEX, config.git_tag_regex
     end
