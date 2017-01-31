@@ -169,16 +169,21 @@ module Thermite
     end
 
     #
+    # If run in a multi-crate environment, the Cargo workspace member that contains the
+    # Ruby extension.
+    #
+    def cargo_workspace_member
+      @cargo_workspace_member ||= @options[:cargo_workspace_member]
+    end
+
+    #
     # The absolute path to the `Cargo.toml` file. The path depends on the existence of the
     # `cargo_workspace_member` configuration option.
     #
     def cargo_toml_path
       @cargo_toml_path ||= begin
-        components = if (member_path = @options[:cargo_workspace_member])
-          [member_path, 'Cargo.toml']
-        else
-          ['Cargo.toml']
-        end
+        components = ['Cargo.toml']
+        components.unshift(cargo_workspace_member) if cargo_workspace_member
 
         rust_path(*components)
       end
