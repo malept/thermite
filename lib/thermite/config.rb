@@ -169,6 +169,27 @@ module Thermite
     end
 
     #
+    # If run in a multi-crate environment, the Cargo workspace member that contains the
+    # Ruby extension.
+    #
+    def cargo_workspace_member
+      @cargo_workspace_member ||= @options[:cargo_workspace_member]
+    end
+
+    #
+    # The absolute path to the `Cargo.toml` file. The path depends on the existence of the
+    # `cargo_workspace_member` configuration option.
+    #
+    def cargo_toml_path
+      @cargo_toml_path ||= begin
+        components = ['Cargo.toml']
+        components.unshift(cargo_workspace_member) if cargo_workspace_member
+
+        rust_path(*components)
+      end
+    end
+
+    #
     # Path to the Rust shared library in the context of the Ruby project.
     #
     def ruby_extension_path
@@ -198,7 +219,7 @@ module Thermite
     # Parsed TOML object (courtesy of `tomlrb`).
     #
     def toml
-      @toml ||= Tomlrb.load_file(rust_path('Cargo.toml'), symbolize_keys: true)
+      @toml ||= Tomlrb.load_file(cargo_toml_path, symbolize_keys: true)
     end
 
     #

@@ -55,6 +55,10 @@ module Thermite
     #
     def run_cargo_rustc(target)
       cargo_args = %w(rustc)
+      if config.cargo_workspace_member
+        manifest = File.join(config.cargo_workspace_member, 'Cargo.toml')
+        cargo_args.push('--manifest-path', manifest)
+      end
       cargo_args << '--release' if target == 'release'
       cargo_args.push(*cargo_rustc_args)
       run_cargo(*cargo_args)

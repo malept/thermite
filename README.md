@@ -76,7 +76,10 @@ Possible options:
   Example: `https://example.com/download/%{version}/%{filename}`. Replacement variables:
     - `filename` - The value of `Config.tarball_filename`
     - `version` - the crate version from `Cargo.toml`
-* `cargo_project_path` - the path to the Cargo project. Defaults to the current working directory.
+* `cargo_project_path` - the path to the top-level Cargo project. Defaults to the current working
+  directory.
+* `cargo_workspace_member` - if set, the relative path to the Cargo workspace member. Usually used
+  when it is part of a repository containing multiple crates.
 * `github_releases` - whether to look for Rust binaries via GitHub releases when installing
   the gem, and `cargo` is not found. Defaults to `false`.
 * `github_release_type` - when `github_releases` is `true`, the mode to use to download the Rust

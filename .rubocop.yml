@@ -3,6 +3,10 @@ AllCops:
   - 'vendor/**/*'
   TargetRubyVersion: 2.1
 
+Lint/EndAlignment:
+  Enabled: true
+  EnforcedStyleAlignWith: variable
+
 Metrics/AbcSize:
   Max: 20
 
