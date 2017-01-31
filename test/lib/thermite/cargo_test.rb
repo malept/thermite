@@ -37,7 +37,7 @@ module Thermite
     def test_run_cargo_rustc_with_workspace_member
       mock_module.config.stubs(:dynamic_linker_flags).returns('')
       mock_module.config.stubs(:cargo_workspace_member).returns('foo/bar')
-      mock_module.expects(:run_cargo).with('rustc', '--manifest-path', 'foo/bar').once
+      mock_module.expects(:run_cargo).with('rustc', '--manifest-path', 'foo/bar/Cargo.toml').once
       mock_module.run_cargo_rustc('debug')
     end
 
