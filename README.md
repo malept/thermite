@@ -59,7 +59,7 @@ Task configuration for your project can be set in two ways:
 * passing arguments to `Thermite::Tasks.new`
 * adding a `package.metadata.thermite` section to `Cargo.toml`. These settings override the
   arguments passed to the `Tasks` class. Due to the conflict, it is infeasible for
-  `cargo_project_path` to be set in this way. Example section:
+  `cargo_project_path` or `cargo_workspace_member` to be set in this way. Example section:
 
 ```toml
 [package.metadata.thermite]

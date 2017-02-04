@@ -89,7 +89,9 @@ module Thermite
     #   current working directory.
     #
     # These values can be overridden by values with the same key name in the
-    # `package.metadata.thermite` section of `Cargo.toml`, if that section exists.
+    # `package.metadata.thermite` section of `Cargo.toml`, if that section exists. The exceptions
+    # to this are `cargo_project_path` and `cargo_workspace_member`, since they are both used to
+    # find the `Cargo.toml` file.
     #
     attr_reader :options
 
