@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## [0.11.0] - 2017-02-03
+
+### Added
+
+* Add support for Cargo workspaces (#30)
+
 ## [0.10.0] - 2017-01-22
 
 ### Fixed
@@ -114,6 +120,7 @@
 
 Initial release.
 
+[0.11.0]: https://github.com/malept/thermite/compare/v0.10.0...v0.11.0
 [0.10.0]: https://github.com/malept/thermite/compare/v0.9.0...v0.10.0
 [0.9.0]: https://github.com/malept/thermite/compare/v0.8.0...v0.9.0
 [0.8.0]: https://github.com/malept/thermite/compare/v0.7.0...v0.8.0
