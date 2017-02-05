@@ -135,14 +135,14 @@ module Thermite
       desc 'Clean up after thermite:build task'
       task 'thermite:clean' do
         FileUtils.rm(config.ruby_extension_path, force: true)
-        run_cargo_if_exists 'clean'
+        run_cargo_if_exists 'clean', *cargo_manifest_path_args
       end
     end
 
     def define_test_task
       desc 'Run Rust testsuite'
       task 'thermite:test' do
-        run_cargo_if_exists 'test'
+        run_cargo_if_exists 'test', *cargo_manifest_path_args
       end
     end
 
