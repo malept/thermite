@@ -109,6 +109,20 @@ module Thermite
       assert_equal '/tmp/foobar/baz/quux', config.rust_path('baz', 'quux')
     end
 
+    def test_cargo_target_path_with_env_var
+      FileUtils.stubs(:pwd).returns('/tmp/foobar')
+      ENV['CARGO_TARGET_DIR'] = 'foo'
+      assert_equal File.join('foo', 'debug', 'bar'), config.cargo_target_path('debug', 'bar')
+      ENV['CARGO_TARGET_DIR'] = nil
+    end
+
+    def test_cargo_target_path_without_env_var
+      FileUtils.stubs(:pwd).returns('/tmp/foobar')
+      ENV['CARGO_TARGET_DIR'] = nil
+      assert_equal File.join('/tmp/foobar', 'debug', 'bar'),
+                   config.cargo_target_path('debug', 'bar')
+    end
+
     def test_cargo_toml_path_with_workspace_member
       FileUtils.stubs(:pwd).returns('/tmp/foobar')
       config(cargo_workspace_member: 'baz')

@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Added
+
+* Support for CARGO_TARGET_DIR environment variable (#33)
+
 ## [0.11.1] - 2017-02-04
 
 ### Fixed
