@@ -117,13 +117,13 @@ module Thermite
     private
 
     def define_build_task
-      desc 'Build or download the Rust shared library: CARGO_TARGET controls Cargo target'
+      desc 'Build or download the Rust shared library: CARGO_PROFILE controls Cargo profile'
       task 'thermite:build' do
         # if cargo found, build. Otherwise, grab binary (when github_releases is enabled).
         if cargo
-          target = ENV.fetch('CARGO_TARGET', 'release')
-          run_cargo_rustc(target)
-          FileUtils.cp(config.cargo_target_path(target, config.shared_library),
+          profile = ENV.fetch('CARGO_PROFILE', 'release')
+          run_cargo_rustc(profile)
+          FileUtils.cp(config.cargo_target_path(profile, config.shared_library),
                        config.ruby_path('lib'))
         elsif !download_binary_from_custom_uri && !download_binary_from_github_release
           inform_user_about_cargo

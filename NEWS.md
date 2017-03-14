@@ -6,6 +6,10 @@
 
 * Support for CARGO_TARGET_DIR environment variable (#33)
 
+### Changed
+
+* CARGO_TARGET is now CARGO_PROFILE, for less confusion (#35)
+
 ## [0.11.1] - 2017-02-04
 
 ### Fixed
