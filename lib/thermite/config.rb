@@ -169,6 +169,15 @@ module Thermite
     end
 
     #
+    # Generate a path relative to the `CARGO_TARGET_DIR` environment variable, or
+    # {#rust_toplevel_dir} if that is not set.
+    #
+    def cargo_target_path(target, *path_components)
+      target_base = ENV.fetch('CARGO_TARGET_DIR', rust_toplevel_dir)
+      File.join(target_base, target, *path_components)
+    end
+
+    #
     # If run in a multi-crate environment, the Cargo workspace member that contains the
     # Ruby extension.
     #
