@@ -47,7 +47,7 @@ module Thermite
     include Thermite::Util
 
     #
-    # The configuration used for the Rake tasks.
+    # The configuration used for the Rake tasks. See: {Thermite::Config}
     #
     attr_reader :config
 
@@ -96,7 +96,7 @@ module Thermite
     attr_reader :options
 
     #
-    # Define the Thermite tasks with the given configuration parameters (see `options`).
+    # Define the Thermite tasks with the given configuration parameters (see {#options}).
     #
     # Example:
     #

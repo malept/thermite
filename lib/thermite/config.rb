@@ -30,7 +30,7 @@ module Thermite
     #
     # Creates a new configuration object.
     #
-    # `options` is the same as the `Thermite::Tasks.new` parameter.
+    # `options` is the same as the {Thermite::Tasks#initialize} parameter.
     #
     def initialize(options = {})
       @options = options
@@ -135,7 +135,7 @@ module Thermite
     end
 
     #
-    # Generate a path relative to `ruby_toplevel_dir`, given the `path_components` that are passed
+    # Generate a path relative to {#ruby_toplevel_dir}, given the `path_components` that are passed
     # to `File.join`.
     #
     def ruby_path(*path_components)
@@ -161,7 +161,7 @@ module Thermite
     end
 
     #
-    # Generate a path relative to `rust_toplevel_dir`, given the `path_components` that are
+    # Generate a path relative to {#rust_toplevel_dir}, given the `path_components` that are
     # passed to `File.join`.
     #
     def rust_path(*path_components)
@@ -178,7 +178,7 @@ module Thermite
 
     #
     # The absolute path to the `Cargo.toml` file. The path depends on the existence of the
-    # `cargo_workspace_member` configuration option.
+    # {#cargo_workspace_member} configuration option.
     #
     def cargo_toml_path
       @cargo_toml_path ||= begin
