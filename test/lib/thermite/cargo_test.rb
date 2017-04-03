@@ -12,7 +12,7 @@ module Thermite
 
     def test_run_cargo_if_exists
       mock_module.stubs(:find_executable).returns('/opt/cargo-test/bin/cargo')
-      mock_module.expects(:sh).with('/opt/cargo-test/bin/cargo foo bar').once
+      mock_module.expects(:sh).with('/opt/cargo-test/bin/cargo', 'foo', 'bar').once
       mock_module.run_cargo_if_exists('foo', 'bar')
     end
 

@@ -19,7 +19,6 @@
 # OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 require 'mkmf'
-require 'shellwords'
 
 module Thermite
   #
@@ -38,8 +37,7 @@ module Thermite
     #
     def run_cargo(*args)
       Dir.chdir(config.rust_toplevel_dir) do
-        shell_args = config.target_os == 'mingw32' ? args.join(' ') : Shellwords.join(args)
-        sh "#{cargo} #{shell_args}"
+        sh cargo, *args
       end
     end
 
