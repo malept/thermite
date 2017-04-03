@@ -24,3 +24,10 @@ Metrics/LineLength:
 
 Metrics/MethodLength:
   Max: 20
+
+Style/EmptyLineAfterMagicComment:
+  Enabled: false
+
+# When support for Ruby < 2.3 is dropped, re-enable
+Style/IndentHeredoc:
+  Enabled: false
