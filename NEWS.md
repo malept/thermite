@@ -6,6 +6,10 @@
 
 * Support for CARGO_TARGET_DIR environment variable (#33)
 
+### Fixed
+
+* Cargo executable and arguments with paths using spaces are supported properly
+
 ### Changed
 
 * CARGO_TARGET is now CARGO_PROFILE, for less confusion (#35)
