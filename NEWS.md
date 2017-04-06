@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## Fixed
+
+* Default target directory (when the CARGO_TARGET_DIR is not set)
+
 ## [0.12.0] - 2017-04-05
 
 ### Added

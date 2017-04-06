@@ -119,7 +119,7 @@ module Thermite
     def test_cargo_target_path_without_env_var
       FileUtils.stubs(:pwd).returns('/tmp/foobar')
       ENV['CARGO_TARGET_DIR'] = nil
-      assert_equal File.join('/tmp/foobar', 'debug', 'bar'),
+      assert_equal File.join('/tmp/foobar', 'target', 'debug', 'bar'),
                    config.cargo_target_path('debug', 'bar')
     end
 

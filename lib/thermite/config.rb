@@ -170,10 +170,10 @@ module Thermite
 
     #
     # Generate a path relative to the `CARGO_TARGET_DIR` environment variable, or
-    # {#rust_toplevel_dir} if that is not set.
+    # {#rust_toplevel_dir}/target if that is not set.
     #
     def cargo_target_path(target, *path_components)
-      target_base = ENV.fetch('CARGO_TARGET_DIR', rust_toplevel_dir)
+      target_base = ENV.fetch('CARGO_TARGET_DIR', File.join(rust_toplevel_dir, 'target'))
       File.join(target_base, target, *path_components)
     end
 
