@@ -3,7 +3,7 @@ require 'English'
 
 Gem::Specification.new do |s|
   s.name        = 'thermite'
-  s.version     = '0.12.0'
+  s.version     = '0.12.1'
   s.summary     = 'Rake helpers for Rust+Ruby'
   s.description = 'A Rake-based helper for building and distributing Rust-based Ruby extensions'
 
