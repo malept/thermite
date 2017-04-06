@@ -30,4 +30,4 @@ end
 YARD::Rake::YardocTask.new
 RuboCop::RakeTask.new
 
-task default: %w(rubocop yard test)
+task default: %w[rubocop yard test]

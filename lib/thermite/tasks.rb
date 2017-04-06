@@ -149,7 +149,7 @@ module Thermite
     def define_package_task
       namespace :thermite do
         desc 'Package rust library in a tarball'
-        task tarball: %w(thermite:build) do
+        task tarball: %w[thermite:build] do
           build_package
         end
       end

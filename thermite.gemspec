@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.license     = 'MIT'
 
   s.files         = `git ls-files`.split($OUTPUT_RECORD_SEPARATOR)
-  s.require_paths = %w(lib)
+  s.require_paths = %w[lib]
 
   # Mostly due to tomlrb
   s.required_ruby_version = '>= 2.0.0'

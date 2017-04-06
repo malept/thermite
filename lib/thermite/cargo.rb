@@ -52,7 +52,7 @@ module Thermite
     # Run `cargo rustc`, given a target (i.e., `release` [default] or `debug`).
     #
     def run_cargo_rustc(target)
-      cargo_args = %w(rustc)
+      cargo_args = %w[rustc]
       cargo_args.push(*cargo_manifest_path_args)
       cargo_args << '--release' if target == 'release'
       cargo_args.push(*cargo_rustc_args)
