@@ -74,7 +74,7 @@ module Thermite
       config.stubs(:library_name).returns('foobar')
       config.stubs(:shared_ext).returns('ext')
       Gem.stubs(:win_platform?).returns(false)
-      assert_equal 'libfoobar.ext', config.shared_library
+      assert_equal 'foobar.ext', config.shared_library
     end
 
     def test_shared_library_windows
@@ -82,6 +82,20 @@ module Thermite
       config.stubs(:shared_ext).returns('ext')
       Gem.stubs(:win_platform?).returns(true)
       assert_equal 'foobar.ext', config.shared_library
+    end
+
+    def test_cargo_shared_library
+      config.stubs(:library_name).returns('foobar')
+      config.stubs(:shared_ext).returns('ext')
+      Gem.stubs(:win_platform?).returns(false)
+      assert_equal 'libfoobar.ext', config.cargo_shared_library
+    end
+
+    def test_cargo_shared_library_windows
+      config.stubs(:library_name).returns('foobar')
+      config.stubs(:shared_ext).returns('ext')
+      Gem.stubs(:win_platform?).returns(true)
+      assert_equal 'foobar.ext', config.cargo_shared_library
     end
 
     def test_tarball_filename
