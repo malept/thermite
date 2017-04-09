@@ -113,7 +113,7 @@ module Thermite
     #
     def cargo_shared_library
       @cargo_shared_library ||= begin
-        filename = shared_library
+        filename = "#{library_name}.#{shared_ext}"
         filename = "lib#{filename}" unless Gem.win_platform?
         filename
       end
@@ -123,7 +123,7 @@ module Thermite
     # The basename of the Rust shared library, as installed in the {#ruby_extension_path}.
     #
     def shared_library
-      @shared_library ||= "#{library_name}.#{shared_ext}"
+      @shared_library ||= "#{library_name}.so"
     end
 
     #

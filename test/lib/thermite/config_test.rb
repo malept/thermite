@@ -55,14 +55,14 @@ module Thermite
       config.stubs(:library_name).returns('foobar')
       config.stubs(:shared_ext).returns('ext')
       Gem.stubs(:win_platform?).returns(false)
-      assert_equal 'foobar.ext', config.shared_library
+      assert_equal 'foobar.so', config.shared_library
     end
 
     def test_shared_library_windows
       config.stubs(:library_name).returns('foobar')
       config.stubs(:shared_ext).returns('ext')
       Gem.stubs(:win_platform?).returns(true)
-      assert_equal 'foobar.ext', config.shared_library
+      assert_equal 'foobar.so', config.shared_library
     end
 
     def test_cargo_shared_library
