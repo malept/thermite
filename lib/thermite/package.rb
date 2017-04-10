@@ -24,7 +24,7 @@ require 'zlib'
 
 module Thermite
   #
-  # Helpers to package the Rust library, using FPM.
+  # Helpers to package the Rust library into a gzipped tarball.
   #
   module Package
     #
