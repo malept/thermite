@@ -131,7 +131,9 @@ module Thermite
     # package `version`.
     #
     def tarball_filename(version)
-      "#{library_name}-#{version}-#{ruby_version}-#{target_os}-#{target_arch}.tar.gz"
+      static = static_extension? ? '-static' : ''
+
+      "#{library_name}-#{version}-#{ruby_version}-#{target_os}-#{target_arch}#{static}.tar.gz"
     end
 
     #
@@ -267,6 +269,13 @@ module Thermite
     #
     def dynamic_linker_flags
       @dynamic_linker_flags ||= RbConfig::CONFIG['DLDFLAGS'].strip
+    end
+
+    #
+    # Whether to use a statically linked extension.
+    #
+    def static_extension?
+      ENV.key?('RUBY_STATIC') || RbConfig::CONFIG['ENABLE_SHARED'] == 'no'
     end
 
     private
