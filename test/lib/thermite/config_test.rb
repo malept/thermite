@@ -55,13 +55,23 @@ module Thermite
       config.stubs(:library_name).returns('foobar')
       config.stubs(:shared_ext).returns('ext')
       Gem.stubs(:win_platform?).returns(false)
+      config.stubs(:dlext).returns('so')
       assert_equal 'foobar.so', config.shared_library
+    end
+
+    def test_shared_library_darwin
+      config.stubs(:library_name).returns('foobar')
+      config.stubs(:shared_ext).returns('ext')
+      Gem.stubs(:win_platform?).returns(false)
+      config.stubs(:dlext).returns('bundle')
+      assert_equal 'foobar.bundle', config.shared_library
     end
 
     def test_shared_library_windows
       config.stubs(:library_name).returns('foobar')
       config.stubs(:shared_ext).returns('ext')
       Gem.stubs(:win_platform?).returns(true)
+      config.stubs(:dlext).returns('so')
       assert_equal 'foobar.so', config.shared_library
     end
 

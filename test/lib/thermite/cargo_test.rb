@@ -24,18 +24,21 @@ module Thermite
 
     def test_run_cargo_debug_rustc
       mock_module.config.stubs(:dynamic_linker_flags).returns('')
+      mock_module.config.stubs(:target_os).returns('linux')
       mock_module.expects(:run_cargo).with('rustc').once
       mock_module.run_cargo_rustc('debug')
     end
 
     def test_run_cargo_release_rustc
       mock_module.config.stubs(:dynamic_linker_flags).returns('')
+      mock_module.config.stubs(:target_os).returns('linux')
       mock_module.expects(:run_cargo).with('rustc', '--release').once
       mock_module.run_cargo_rustc('release')
     end
 
     def test_run_cargo_rustc_with_workspace_member
       mock_module.config.stubs(:dynamic_linker_flags).returns('')
+      mock_module.config.stubs(:target_os).returns('linux')
       mock_module.config.stubs(:cargo_workspace_member).returns('foo/bar')
       mock_module.expects(:run_cargo).with('rustc', '--manifest-path', 'foo/bar/Cargo.toml').once
       mock_module.run_cargo_rustc('debug')
@@ -43,11 +46,15 @@ module Thermite
 
     def test_run_cargo_rustc_with_dynamic_linker_flags
       mock_module.config.stubs(:dynamic_linker_flags).returns('foo bar')
-      if RbConfig::CONFIG['target_os'] == 'mingw32'
-        mock_module.expects(:run_cargo).with('rustc').once
-      else
-        mock_module.expects(:run_cargo).with('rustc', '--', '-C', 'link-args=foo bar').once
-      end
+      mock_module.config.stubs(:target_os).returns('linux')
+      mock_module.expects(:run_cargo).with('rustc', '--', '-C', 'link-args=foo bar').once
+      mock_module.run_cargo_rustc('debug')
+    end
+
+    def test_run_cargo_rustc_with_dynamic_linker_flags_on_darwin
+      mock_module.config.stubs(:dynamic_linker_flags).returns('foo bar')
+      mock_module.config.stubs(:target_os).returns('darwin15')
+      mock_module.expects(:run_cargo).with('rustc', '--', '-C', 'link-args=foo bar -bundle').once
       mock_module.run_cargo_rustc('debug')
     end
 

@@ -110,14 +110,26 @@ EOM
 
     private
 
+    def cargo_link_args
+      link_args = []
+
+      unless config.dynamic_linker_flags == '' || config.target_os == 'mingw32'
+        link_args << config.dynamic_linker_flags
+      end
+
+      link_args << '-bundle' if config.target_darwin?
+
+      link_args
+    end
+
     def cargo_rustc_args
-      if config.dynamic_linker_flags == '' || config.target_os == 'mingw32'
+      if (link_args = cargo_link_args).empty?
         []
       else
         [
           '--',
           '-C',
-          "link-args=#{config.dynamic_linker_flags}"
+          "link-args=#{link_args.join(' ')}"
         ]
       end
     end

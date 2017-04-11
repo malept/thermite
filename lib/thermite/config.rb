@@ -94,6 +94,13 @@ module Thermite
     def target_os
       @target_os ||= RbConfig::CONFIG['target_os']
     end
+
+    #
+    # Convenience method to determine if the target OS is macOS.
+    #
+    def target_darwin?
+      target_os.start_with?('darwin')
+    end
     # :nocov:
 
     #
@@ -123,7 +130,7 @@ module Thermite
     # The basename of the Rust shared library, as installed in the {#ruby_extension_path}.
     #
     def shared_library
-      @shared_library ||= "#{library_name}.so"
+      @shared_library ||= "#{library_name}.#{dlext}"
     end
 
     #
