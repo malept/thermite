@@ -123,7 +123,7 @@ module Thermite
         if cargo
           profile = ENV.fetch('CARGO_PROFILE', 'release')
           run_cargo_rustc(profile)
-          FileUtils.cp(config.cargo_target_path(profile, "deps", config.shared_library),
+          FileUtils.cp(config.cargo_target_path(profile, 'deps', config.shared_library),
                        config.ruby_path('lib'))
         elsif !download_binary_from_custom_uri && !download_binary_from_github_release
           inform_user_about_cargo
