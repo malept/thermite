@@ -114,6 +114,7 @@ EOM
       args = []
       unless config.dynamic_linker_flags == '' || config.target_os == 'mingw32'
         args.push(
+          '--lib',
           '--',
           '-C',
           "link-args=#{config.dynamic_linker_flags}"
