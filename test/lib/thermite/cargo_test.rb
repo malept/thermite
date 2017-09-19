@@ -46,7 +46,7 @@ module Thermite
       if RbConfig::CONFIG['target_os'] == 'mingw32'
         mock_module.expects(:run_cargo).with('rustc').once
       else
-        mock_module.expects(:run_cargo).with('rustc', '--', '-C', 'link-args=foo bar').once
+        mock_module.expects(:run_cargo).with('rustc', '--lib', '--', '-C', 'link-args=foo bar').once
       end
       mock_module.run_cargo_rustc('debug')
     end
