@@ -74,22 +74,38 @@ module Thermite
       config.stubs(:library_name).returns('foobar')
       config.stubs(:shared_ext).returns('ext')
       Gem.stubs(:win_platform?).returns(false)
-      assert_equal 'libfoobar.ext', config.shared_library
+      assert_equal 'foobar.so', config.shared_library
     end
 
     def test_shared_library_windows
       config.stubs(:library_name).returns('foobar')
       config.stubs(:shared_ext).returns('ext')
       Gem.stubs(:win_platform?).returns(true)
-      assert_equal 'foobar.ext', config.shared_library
+      assert_equal 'foobar.so', config.shared_library
+    end
+
+    def test_cargo_shared_library
+      config.stubs(:library_name).returns('foobar')
+      config.stubs(:shared_ext).returns('ext')
+      Gem.stubs(:win_platform?).returns(false)
+      assert_equal 'libfoobar.ext', config.cargo_shared_library
+    end
+
+    def test_cargo_shared_library_windows
+      config.stubs(:library_name).returns('foobar')
+      config.stubs(:shared_ext).returns('ext')
+      Gem.stubs(:win_platform?).returns(true)
+      assert_equal 'foobar.ext', config.cargo_shared_library
     end
 
     def test_tarball_filename
-      config.stubs(:library_name).returns('foobar')
-      config.stubs(:ruby_version).returns('ruby12')
-      config.stubs(:target_os).returns('c64')
-      config.stubs(:target_arch).returns('z80')
+      stub_tarball_filename_params(false)
       assert_equal 'foobar-0.1.2-ruby12-c64-z80.tar.gz', config.tarball_filename('0.1.2')
+    end
+
+    def test_tarball_filename_with_static_extension
+      stub_tarball_filename_params(true)
+      assert_equal 'foobar-0.1.2-ruby12-c64-z80-static.tar.gz', config.tarball_filename('0.1.2')
     end
 
     def test_default_ruby_toplevel_dir
@@ -180,6 +196,21 @@ module Thermite
       assert_equal expected, config(cargo_project_path: fixtures_path('config')).toml_config
     end
 
+    def test_static_extension_sans_env_var
+      ENV.stubs(:key?).with('RUBY_STATIC').returns(false)
+      RbConfig::CONFIG.stubs(:[]).with('ENABLE_SHARED').returns('yes')
+      refute config.static_extension?
+
+      RbConfig::CONFIG.stubs(:[]).with('ENABLE_SHARED').returns('no')
+      assert config.static_extension?
+    end
+
+    def test_static_extension_with_env_var
+      ENV.stubs(:key?).with('RUBY_STATIC').returns(true)
+      RbConfig::CONFIG.stubs(:[]).with('ENABLE_SHARED').returns('yes')
+      assert config.static_extension?
+    end
+
     private
 
     def config(options = {})
@@ -188,6 +219,14 @@ module Thermite
 
     def described_class
       Thermite::Config
+    end
+
+    def stub_tarball_filename_params(static_extension)
+      config.stubs(:library_name).returns('foobar')
+      config.stubs(:ruby_version).returns('ruby12')
+      config.stubs(:target_os).returns('c64')
+      config.stubs(:target_arch).returns('z80')
+      config.stubs(:static_extension?).returns(static_extension)
     end
   end
 end
