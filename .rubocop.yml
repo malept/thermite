@@ -3,6 +3,9 @@ AllCops:
   - 'vendor/**/*'
   TargetRubyVersion: 2.1
 
+Layout/EmptyLineAfterMagicComment:
+  Enabled: false
+
 Lint/EndAlignment:
   Enabled: true
   EnforcedStyleAlignWith: variable
@@ -24,9 +27,6 @@ Metrics/LineLength:
 
 Metrics/MethodLength:
   Max: 20
-
-Style/EmptyLineAfterMagicComment:
-  Enabled: false
 
 # When support for Ruby < 2.3 is dropped, re-enable
 Style/IndentHeredoc:

@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 # frozen_string_literal: true
 #
 # Copyright (c) 2016 Mark Lee and contributors
@@ -86,12 +85,12 @@ module Thermite
     # `require_severity` is the verb that indicates how important Rust is to the library.
     #
     def cargo_msg(require_severity)
-      <<EOM
+      <<MESSAGE
 ****
 Rust's Cargo is #{require_severity} to build this extension. Please install
 Rust and put it in the PATH, or set the CARGO environment variable appropriately.
 ****
-EOM
+MESSAGE
     end
 
     #
