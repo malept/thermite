@@ -6,6 +6,10 @@ AllCops:
 Layout/EmptyLineAfterMagicComment:
   Enabled: false
 
+# When support for Ruby < 2.3 is dropped, re-enable
+Layout/IndentHeredoc:
+  Enabled: false
+
 Lint/EndAlignment:
   Enabled: true
   EnforcedStyleAlignWith: variable
@@ -27,7 +31,3 @@ Metrics/LineLength:
 
 Metrics/MethodLength:
   Max: 20
-
-# When support for Ruby < 2.3 is dropped, re-enable
-Style/IndentHeredoc:
-  Enabled: false
