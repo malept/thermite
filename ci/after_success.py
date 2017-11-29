@@ -49,6 +49,6 @@ def trigger_travis_build():
 
 if __name__ == '__main__':
     if (os.environ['TRAVIS_OS_NAME'] == 'linux' and
-        os.environ['TRAVIS_RUBY_VERSION'].startswith('2.3.')):
+        os.environ['TRAVIS_RUBY_VERSION'].startswith('2.4.')):
         trigger_appveyor_build()
         trigger_travis_build()
