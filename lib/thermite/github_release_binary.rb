@@ -54,7 +54,10 @@ module Thermite
 
     def download_cargo_version_from_github_release
       version = config.crate_version
+      # TODO: Change this to a named token and increment the 0.minor version
+      # rubocop:disable Style/FormatStringToken
       tag = options.fetch(:git_tag_format, 'v%s') % version
+      # rubocop:enable Style/FormatStringToken
       uri = github_download_uri(tag, version)
       return false unless (tgz = download_versioned_github_release_binary(uri, version))
 
