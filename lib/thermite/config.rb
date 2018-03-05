@@ -19,6 +19,7 @@
 
 require 'fileutils'
 require 'rbconfig'
+require 'thermite/semver'
 require 'tomlrb'
 
 module Thermite
@@ -214,9 +215,9 @@ module Thermite
     end
 
     #
-    # The basic semantic versioning format.
+    # The default git tag regular expression (semantic versioning format).
     #
-    DEFAULT_TAG_REGEX = /^(v\d+\.\d+\.\d+)$/
+    DEFAULT_TAG_REGEX = /^(#{Thermite::SemVer::VERSION})$/
 
     #
     # The format (as a regular expression) that git tags containing Rust binary

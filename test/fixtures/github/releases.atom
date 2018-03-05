@@ -6,10 +6,10 @@
   <title>Release notes from project</title>
   <updated>2016-07-10T01:57:28Z</updated>
   <entry>
-    <id>tag:github.com,2008:Repository/12345678/v0.1.12-rust</id>
+    <id>tag:github.com,2008:Repository/12345678/v0.1.12_rust</id>
     <updated>2016-07-10T01:59:24Z</updated>
-    <link rel="alternate" type="text/html" href="/ghost/project/releases/tag/v0.1.12-rust"/>
-    <title>v0.1.12-rust</title>
+    <link rel="alternate" type="text/html" href="/ghost/project/releases/tag/v0.1.12_rust"/>
+    <title>v0.1.12_rust</title>
     <content>No content.</content>
     <author>
       <name>ghost</name>
@@ -17,10 +17,10 @@
     <media:thumbnail height="30" width="30" url="about:blank"/>
   </entry>
   <entry>
-    <id>tag:github.com,2008:Repository/12345678/v0.1.11-rust</id>
+    <id>tag:github.com,2008:Repository/12345678/v0.1.11_rust</id>
     <updated>2016-07-09T22:47:09Z</updated>
-    <link rel="alternate" type="text/html" href="/ghost/project/releases/tag/v0.1.11-rust"/>
-    <title>v0.1.11-rust</title>
+    <link rel="alternate" type="text/html" href="/ghost/project/releases/tag/v0.1.11_rust"/>
+    <title>v0.1.11_rust</title>
     <content>No content.</content>
     <author>
       <name>ghost</name>

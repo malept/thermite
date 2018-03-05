@@ -93,8 +93,9 @@ Possible options:
 * `git_tag_regex` - when `github_releases` is enabled and `github_release_type` is `'latest'`, a
   regular expression (expressed as a `String`) that determines which tagged releases to look for
   precompiled Rust tarballs. One group must be specified that indicates the version number to be
-  used in the tarball filename. Defaults to `vN.N.N`, where `N` is any n-digit number. In this case,
-  the group is around the entire expression.
+  used in the tarball filename. Defaults to the [semantic versioning 2.0.0
+  format](https://semver.org/spec/v2.0.0.html). In this case, the group is around the entire
+  expression.
 * `optional_rust_extension` - prints a warning to STDERR instead of raising an exception, if Cargo
   is unavailable and `github_releases` is either disabled or unavailable. Useful for projects where
   either fallback code exists, or a native extension is desirable but not required. Defaults
