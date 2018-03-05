@@ -111,7 +111,7 @@ module Thermite
     end
 
     def test_download_latest_binary_from_github_release
-      mock_module(github_releases: true, github_release_type: 'latest', git_tag_regex: 'v(.*)-rust')
+      mock_module(github_releases: true, github_release_type: 'latest', git_tag_regex: 'v(.*)_rust')
       stub_releases_atom
       mock_module.stubs(:download_versioned_github_release_binary).returns(StringIO.new('tarball'))
       mock_module.expects(:unpack_tarball).once
@@ -129,7 +129,7 @@ module Thermite
     end
 
     def test_download_latest_binary_from_github_release_no_tarball_found
-      mock_module(github_releases: true, github_release_type: 'latest', git_tag_regex: 'v(.*)-rust')
+      mock_module(github_releases: true, github_release_type: 'latest', git_tag_regex: 'v(.*)_rust')
       stub_releases_atom
       mock_module.stubs(:download_versioned_github_release_binary).returns(nil)
       mock_module.expects(:unpack_tarball).never

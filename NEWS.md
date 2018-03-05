@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Changed
+
+* The default `git_tag_regex` conforms more to the semantic versioning 2.0.0 spec (#46)
+
 ## [0.13.0] - 2017-10-05
 
 ### Added
