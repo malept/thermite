@@ -216,7 +216,7 @@ module Thermite
     #
     # The basic semantic versioning format.
     #
-    DEFAULT_TAG_REGEX = /^(v\d+\.\d+\.\d+)$/
+    DEFAULT_TAG_REGEX = /^(v?(?:\d+\.){2,3}(?:\d+){1}(?:[.-][a-z]+\d+)?)$/
 
     #
     # The format (as a regular expression) that git tags containing Rust binary
