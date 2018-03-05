@@ -220,7 +220,7 @@ module Thermite
 
     #
     # The format (as a regular expression) that git tags containing Rust binary
-    # tarballs are supposed to match. Defaults to `DEFAULT_TAG_FORMAT`.
+    # tarballs are supposed to match. Defaults to `DEFAULT_TAG_REGEX`.
     #
     def git_tag_regex
       @git_tag_regex ||= begin
