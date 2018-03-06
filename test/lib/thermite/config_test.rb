@@ -129,6 +129,13 @@ module Thermite
       assert_equal '/tmp/foobar/lib/libfoo.ext', config.ruby_extension_path
     end
 
+    def test_ruby_extension_path_with_custom_extension_dir
+      FileUtils.stubs(:pwd).returns('/tmp/foobar')
+      config.stubs(:ruby_extension_dir).returns('lib/ext')
+      config.stubs(:shared_library).returns('libfoo.ext')
+      assert_equal '/tmp/foobar/lib/ext/libfoo.ext', config.ruby_extension_path
+    end
+
     def test_default_rust_toplevel_dir
       FileUtils.stubs(:pwd).returns('/tmp/foobar')
       assert_equal '/tmp/foobar', config.rust_toplevel_dir
