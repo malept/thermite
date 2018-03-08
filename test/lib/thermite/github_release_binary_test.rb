@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 #
-# Copyright (c) 2016, 2017 Mark Lee and contributors
+# Copyright (c) 2016, 2017, 2018 Mark Lee and contributors
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 # associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -34,18 +34,28 @@ module Thermite
 
     def test_no_downloading_when_github_releases_is_false
       mock_module(github_releases: false)
-      mock_module.expects(:download_latest_binary_from_github_release).never
-      mock_module.expects(:download_cargo_version_from_github_release).never
+      cargo_instance.expects(:download_binary).never
+      latest_instance.expects(:download_binary).never
 
       assert !mock_module.download_binary_from_github_release
     end
 
     def test_github_release_type_defaults_to_cargo
       mock_module(github_releases: true)
-      mock_module.expects(:download_latest_binary_from_github_release).never
-      mock_module.expects(:download_cargo_version_from_github_release).once
+      cargo_instance.expects(:download_binary).once.returns(true)
+      latest_instance.expects(:download_binary).never
+      mock_module.expects(:unpack_tarball).once
+      mock_module.expects(:prepare_downloaded_library).once
 
-      mock_module.download_binary_from_github_release
+      assert mock_module.download_binary_from_github_release
+    end
+
+    def test_github_release_type_is_unknown
+      mock_module(github_releases: true, github_release_type: 'doesnotexist')
+
+      assert_raises RuntimeError do
+        mock_module.download_binary_from_github_release
+      end
     end
 
     def test_download_cargo_version_from_github_release
@@ -113,7 +123,8 @@ module Thermite
     def test_download_latest_binary_from_github_release
       mock_module(github_releases: true, github_release_type: 'latest', git_tag_regex: 'v(.*)_rust')
       stub_releases_atom
-      mock_module.stubs(:download_versioned_github_release_binary).returns(StringIO.new('tarball'))
+      latest_instance.stubs(:download_versioned_github_release_binary)
+                     .returns(StringIO.new('tarball'))
       mock_module.expects(:unpack_tarball).once
       mock_module.expects(:prepare_downloaded_library).once
 
@@ -131,7 +142,7 @@ module Thermite
     def test_download_latest_binary_from_github_release_no_tarball_found
       mock_module(github_releases: true, github_release_type: 'latest', git_tag_regex: 'v(.*)_rust')
       stub_releases_atom
-      mock_module.stubs(:download_versioned_github_release_binary).returns(nil)
+      latest_instance.stubs(:download_versioned_github_release_binary).returns(nil)
       mock_module.expects(:unpack_tarball).never
       mock_module.expects(:prepare_downloaded_library).never
 
@@ -144,9 +155,17 @@ module Thermite
       Tester
     end
 
+    def cargo_instance
+      GithubRelease::Cargo.any_instance
+    end
+
+    def latest_instance
+      GithubRelease::Latest.any_instance
+    end
+
     def stub_github_download_uri(tag)
       uri = 'https://github.com/user/project/downloads/project-4.5.6.tar.gz'
-      mock_module.expects(:github_download_uri).with(tag, '4.5.6').returns(uri)
+      cargo_instance.expects(:github_download_uri).with(tag, '4.5.6').returns(uri)
     end
 
     def stub_releases_atom
