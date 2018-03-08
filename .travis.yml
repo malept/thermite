@@ -6,10 +6,11 @@ dist: trusty
 sudo: false
 osx_image: xcode8.3
 rvm:
-- 2.1.10
-- 2.2.5
-- 2.3.3
-- 2.4.0
+- '2.1.10'
+- '2.2.5'
+- '2.3.3'
+- '2.4.0'
+- '2.5.0'
 cache: bundler
 before_script:
 - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-$(uname -s | tr '[:upper:]' '[:lower:]')-amd64 > ./cc-test-reporter && chmod +x ./cc-test-reporter
