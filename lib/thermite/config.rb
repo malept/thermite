@@ -208,10 +208,18 @@ module Thermite
     end
 
     #
+    # The relative directory where the Rust shared library resides, in the context of the Ruby
+    # project.
+    #
+    def ruby_extension_dir
+      @ruby_extension_dir ||= @options.fetch(:ruby_extension_dir, 'lib')
+    end
+
+    #
     # Path to the Rust shared library in the context of the Ruby project.
     #
     def ruby_extension_path
-      ruby_path('lib', shared_library)
+      ruby_path(ruby_extension_dir, shared_library)
     end
 
     #

@@ -87,6 +87,8 @@ module Thermite
     #   required. Defaults to `false`.
     # * `ruby_project_path` - the toplevel directory of the Ruby gem's project. Defaults to the
     #   current working directory.
+    # * `ruby_extension_dir` - the directory relative to `ruby_project_path` where the extension is
+    #   located. Defaults to `lib`.
     #
     # These values can be overridden by values with the same key name in the
     # `package.metadata.thermite` section of `Cargo.toml`, if that section exists. The exceptions
