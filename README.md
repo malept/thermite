@@ -104,7 +104,6 @@ Possible options:
   current working directory.
 * `ruby_extension_dir` - the directory relative to `ruby_project_path` where the extension is
   located. Defaults to `lib`.
-* `CARGO_PROFILE` environment variable. Set this to `debug` if you want to do a debug build of Rust code rather than release build. For example, you can run `CARGO_PROFILE=debug rake build`.
 
 ### Example
 
@@ -112,6 +111,12 @@ Using the cliché Rust+Ruby example, the [`rusty_blank`](https://github.com/male
 repository contains an example of using Thermite with [ruru](https://github.com/d-unseductable/ruru)
 to provide a `String.blank?` speedup extension. While the example uses ruru, this gem should be
 usable with any method of integrating Rust and Ruby that you choose.
+
+### Debug / release build
+
+By default Thermite will do a release build of your Rust code. To do a debug build instead, set the `CARGO_PROFILE` environment variable to `debug`.
+
+For example, you can run `CARGO_PROFILE=debug rake build`.
 
 ### Troubleshooting
 
