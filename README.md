@@ -104,6 +104,7 @@ Possible options:
   current working directory.
 * `ruby_extension_dir` - the directory relative to `ruby_project_path` where the extension is
   located. Defaults to `lib`.
+* `CARGO_PROFILE` environment variable. Set this to `debug` if you want to do a debug build of Rust code rather than the release build. For example, you can run `CARGO_PROFILE=debug rake build`.
 
 ### Example
 
