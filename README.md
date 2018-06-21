@@ -114,9 +114,10 @@ usable with any method of integrating Rust and Ruby that you choose.
 
 ### Debug / release build
 
-By default Thermite will do a release build of your Rust code. To do a debug build instead, set the `CARGO_PROFILE` environment variable to `debug`.
+By default Thermite will do a release build of your Rust code. To do a debug build instead,
+set the `CARGO_PROFILE` environment variable to `debug`.
 
-For example, you can run `CARGO_PROFILE=debug rake build`.
+For example, you can run `CARGO_PROFILE=debug rake thermite:build`.
 
 ### Troubleshooting
 
