@@ -112,6 +112,13 @@ repository contains an example of using Thermite with [ruru](https://github.com/
 to provide a `String.blank?` speedup extension. While the example uses ruru, this gem should be
 usable with any method of integrating Rust and Ruby that you choose.
 
+### Debug / release build
+
+By default Thermite will do a release build of your Rust code. To do a debug build instead,
+set the `CARGO_PROFILE` environment variable to `debug`.
+
+For example, you can run `CARGO_PROFILE=debug rake thermite:build`.
+
 ### Troubleshooting
 
 Debug statements can be written to a file specified by the `THERMITE_DEBUG_FILENAME` environment
