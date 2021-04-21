@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'minitar', '~> 0.9'
   s.add_runtime_dependency 'rake', '~> 13.0'
   s.add_runtime_dependency 'tomlrb', '~> 2.0'
-  s.add_runtime_dependency 'rexml'
+  s.add_runtime_dependency 'rexml', '~> 3.2'
   s.add_development_dependency 'minitest', '~> 5.14'
   s.add_development_dependency 'mocha', '~> 1.12'
   s.add_development_dependency 'rubocop', '~> 1.13'
