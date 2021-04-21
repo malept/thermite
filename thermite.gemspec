@@ -16,11 +16,11 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 2.1.0'
 
-  s.add_runtime_dependency 'minitar', '~> 0.6'
-  s.add_runtime_dependency 'rake', '>= 10'
-  s.add_runtime_dependency 'tomlrb', '~> 1.2'
-  s.add_development_dependency 'minitest', '~> 5.9'
-  s.add_development_dependency 'mocha', '~> 1.1'
-  s.add_development_dependency 'rubocop', '~> 0.49'
+  s.add_runtime_dependency 'minitar', '~> 0.9'
+  s.add_runtime_dependency 'rake', '~> 13.0'
+  s.add_runtime_dependency 'tomlrb', '~> 2.0'
+  s.add_development_dependency 'minitest', '~> 5.14'
+  s.add_development_dependency 'mocha', '~> 1.12'
+  s.add_development_dependency 'rubocop', '~> 1.13'
   s.add_development_dependency 'yard', '~> 0.9'
 end
