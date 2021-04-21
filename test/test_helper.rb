@@ -28,7 +28,7 @@ end
 ENV['THERMITE_TEST'] = '1'
 
 require 'minitest/autorun'
-require 'mocha/mini_test'
+require 'mocha/minitest'
 require 'thermite/config'
 
 module Minitest
